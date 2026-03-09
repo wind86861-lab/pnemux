@@ -175,7 +175,7 @@ export default function ProductDetail() {
                   </div>
                   <div className="flex flex-col gap-2 mt-auto">
                     {sim.isActive ? (
-                      <Link to={`/catalog/${sim._id}`} className="w-full bg-[#3563e9] text-white py-2 rounded-lg font-medium hover:bg-[#2952d1] transition-colors text-xs md:text-sm text-center">
+                      <Link to={`/catalog/${sim._id}`} onClick={() => window.scrollTo(0, 0)} className="w-full bg-[#3563e9] text-white py-2 rounded-lg font-medium hover:bg-[#2952d1] transition-colors text-xs md:text-sm text-center">
                         {language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order'}
                       </Link>
                     ) : (
@@ -183,7 +183,7 @@ export default function ProductDetail() {
                         {language === 'uz' ? 'Mavjud emas' : language === 'ru' ? 'Недоступно' : 'Unavailable'}
                       </div>
                     )}
-                    <Link to={`/catalog/${sim._id}`} className="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-xs md:text-sm text-center">
+                    <Link to={`/catalog/${sim._id}`} onClick={() => window.scrollTo(0, 0)} className="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-xs md:text-sm text-center">
                       {language === 'uz' ? 'Batafsil' : language === 'ru' ? 'Подробнее' : 'Details'}
                     </Link>
                   </div>
