@@ -15,6 +15,17 @@ export default function Branches() {
     branchesAPI.getAll().then(res => setBranches(res.data || [])).catch(() => { })
   }, [])
 
+  useEffect(() => {
+    if (window.location.hash) {
+      setTimeout(() => {
+        const element = document.querySelector(window.location.hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+    }
+  }, [branches])
+
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
@@ -42,7 +53,7 @@ export default function Branches() {
 
         <div className="space-y-10 md:space-y-16">
           {branches.map((branch) => (
-            <div key={branch._id} className="space-y-4 md:space-y-6">
+            <div key={branch._id} id={`branch-${branch._id}`} className="space-y-4 md:space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div className="bg-gray-100 rounded-2xl h-[220px] md:h-[350px] overflow-hidden">
                   {branch.image

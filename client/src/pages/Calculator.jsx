@@ -187,7 +187,7 @@ export default function Calculator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mt-6 md:mt-12">
             {branches.map((branch, idx) => (
               <React.Fragment key={branch._id}>
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-[250px] md:h-[350px]">
+                <Link to={`/branches#branch-${branch._id}`} className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-[250px] md:h-[350px] cursor-pointer">
                   <div className="bg-gradient-to-br from-[#1e3d69] to-[#2d5a8f] p-6 md:p-10 text-white h-full flex flex-col justify-between">
                     <div>
                       <h4 className="text-2xl font-bold mb-6">{branch.title?.[language] || branch.title?.uz}</h4>
@@ -203,10 +203,10 @@ export default function Calculator() {
                       )}
                     </div>
                   </div>
-                </div>
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-[250px] md:h-[350px]">
+                </Link>
+                <Link to={`/branches#branch-${branch._id}`} className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-[250px] md:h-[350px] cursor-pointer">
                   <img src={branch.image || (idx === 0 ? branch1 : branch2)} alt={branch.title?.uz} className="w-full h-full object-cover" />
-                </div>
+                </Link>
               </React.Fragment>
             ))}
           </div>
