@@ -108,7 +108,7 @@ export const ru = {
     contact: "Контакты",
     faq: "FAQ",
     news: "Новости",
-    vacancies: "Вакансии",
+    vacancies: "О нас",
     contactTitle: "Связаться",
     location: "Ташкент, Узбекистан",
     copyright: "© 2026 — Все права защищены | Разработка команда Supersite.uz"

@@ -108,7 +108,7 @@ export const en = {
     contact: "Contact",
     faq: "FAQ",
     news: "News",
-    vacancies: "Vacancies",
+    vacancies: "About Us",
     contactTitle: "Contact",
     location: "Tashkent, Uzbekistan",
     copyright: "© 2026 — All rights reserved | Developed by Supersite.uz"

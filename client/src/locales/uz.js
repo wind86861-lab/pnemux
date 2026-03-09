@@ -108,7 +108,7 @@ export const uz = {
     contact: "Aloqa",
     faq: "FAQ",
     news: "Yangiliklar",
-    vacancies: "Vakansiyalar",
+    vacancies: "Biz xaqimizda",
     contactTitle: "Bog'lanish",
     location: "Toshkent, O'zbekiston",
     copyright: "© 2026 — Barcha huquqlar himoyalangan | Ishlab chiquvchi: Supersite.uz"
