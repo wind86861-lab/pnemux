@@ -18,16 +18,16 @@ import {
 import { useState } from 'react'
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Products', href: '/admin/products', icon: Package },
-  { name: 'Categories', href: '/admin/categories', icon: FolderTree },
-  { name: 'Blog Posts', href: '/admin/blogs', icon: FileText },
-  { name: 'Branches', href: '/admin/branches', icon: MapPin },
-  { name: 'Team', href: '/admin/team', icon: Users },
+  { name: 'Главная', href: '/admin', icon: LayoutDashboard },
+  { name: 'Товары', href: '/admin/products', icon: Package },
+  { name: 'Категории', href: '/admin/categories', icon: FolderTree },
+  { name: 'Блог', href: '/admin/blogs', icon: FileText },
+  { name: 'Филиалы', href: '/admin/branches', icon: MapPin },
+  { name: 'Команда', href: '/admin/team', icon: Users },
   { name: 'FAQ', href: '/admin/faq', icon: HelpCircle },
-  { name: 'Requests', href: '/admin/requests', icon: MessageSquare },
-  { name: 'Page Content', href: '/admin/pages', icon: FileEdit },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Заявки', href: '/admin/requests', icon: MessageSquare },
+  { name: 'Контент страниц', href: '/admin/pages', icon: FileEdit },
+  { name: 'Настройки', href: '/admin/settings', icon: Settings },
 ]
 
 export default function Layout() {
@@ -77,7 +77,7 @@ export default function Layout() {
               </div>
               <div>
                 <h1 className="font-bold text-xl">PneuMax</h1>
-                <p className="text-xs text-gray-500">Admin Panel</p>
+                <p className="text-xs text-gray-500">Панель управления</p>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function Layout() {
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
             >
               <LogOut size={20} />
-              <span>Logout</span>
+              <span>Выйти</span>
             </button>
           </div>
         </div>

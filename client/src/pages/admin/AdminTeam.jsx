@@ -73,7 +73,7 @@ export default function AdminTeam() {
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('O\'chirmoqchimisiz?')) return
+    if (!confirm('Удалить этого сотрудника?')) return
     try {
       await teamAPI.delete(id)
       fetchMembers()
@@ -105,29 +105,29 @@ export default function AdminTeam() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Jamoa a'zolari</h1>
-          <p className="text-gray-600 text-sm">{members.length} ta a'zo</p>
+          <h1 className="text-2xl font-bold text-gray-900">Команда</h1>
+          <p className="text-gray-600 text-sm">{members.length} сотрудников</p>
         </div>
         <button
           onClick={() => openModal()}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
         >
-          <Plus size={20} /> Yangi a'zo
+          <Plus size={20} /> Добавить сотрудника
         </button>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">
         {loading ? (
-          <div className="p-8 text-center text-gray-400">Yuklanmoqda...</div>
+          <div className="p-8 text-center text-gray-400">Загрузка...</div>
         ) : members.length === 0 ? (
-          <div className="p-8 text-center text-gray-400">Jamoa a'zolari yo'q</div>
+          <div className="p-8 text-center text-gray-400">Сотрудников нет</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
             {members.map((member) => (
               <div key={member._id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-center justify-between mb-4">
                   <span className={`text-xs px-2 py-1 rounded-full ${member.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                    {member.isActive ? 'Faol' : 'Nofaol'}
+                    {member.isActive ? 'Активен' : 'Неактивен'}
                   </span>
                   <div className="flex gap-1">
                     <button onClick={() => openModal(member)} className="p-1.5 hover:bg-blue-50 rounded-lg text-blue-600">
@@ -162,7 +162,7 @@ export default function AdminTeam() {
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-xl my-4">
             <div className="flex items-center justify-between p-5 border-b">
               <h2 className="text-lg font-bold text-gray-900">
-                {editingMember ? 'A\'zoni tahrirlash' : 'Yangi a\'zo qo\'shish'}
+                {editingMember ? 'Редактировать сотрудника' : 'Добавить сотрудника'}
               </h2>
               <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
                 <X size={20} />
@@ -172,7 +172,7 @@ export default function AdminTeam() {
             <form onSubmit={handleSubmit} className="p-5 space-y-4">
               {/* Image Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Rasm</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Фото</label>
                 <div className="flex items-center gap-4">
                   <div className="w-24 h-24 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center">
                     {formData.image ? (
@@ -185,9 +185,9 @@ export default function AdminTeam() {
                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                     <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors">
                       {uploading ? (
-                        <div className="text-sm text-gray-500">Yuklanmoqda...</div>
+                        <div className="text-sm text-gray-500">Загрузка...</div>
                       ) : (
-                        <div className="text-sm text-gray-500">Rasm yuklash (Max 5MB)</div>
+                        <div className="text-sm text-gray-500">Загрузить фото (Max 5MB)</div>
                       )}
                     </div>
                   </label>
@@ -196,7 +196,7 @@ export default function AdminTeam() {
 
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">*Ism</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">*Имя</label>
                 <input
                   type="text"
                   required
@@ -209,7 +209,7 @@ export default function AdminTeam() {
 
               {/* Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Lavozim</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Должность</label>
                 <div className="grid grid-cols-3 gap-2">
                   <input
                     type="text"
@@ -237,7 +237,7 @@ export default function AdminTeam() {
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tavsif</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Описание</label>
                 <div className="space-y-2">
                   <textarea
                     value={formData.description.uz}
@@ -266,7 +266,7 @@ export default function AdminTeam() {
               {/* Order & Active */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tartib raqami</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Порядок</label>
                   <input
                     type="number"
                     value={formData.order}
@@ -282,7 +282,7 @@ export default function AdminTeam() {
                       onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                       className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
                     />
-                    <span className="text-sm font-medium text-gray-700">Faol</span>
+                    <span className="text-sm font-medium text-gray-700">Активен</span>
                   </label>
                 </div>
               </div>
@@ -293,13 +293,13 @@ export default function AdminTeam() {
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                 >
-                  Bekor qilish
+                  Отмена
                 </button>
                 <button
                   type="submit"
                   className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                 >
-                  <Save size={16} /> Saqlash
+                  <Save size={16} /> Сохранить
                 </button>
               </div>
             </form>

@@ -5,28 +5,28 @@ import { Save, Check, Upload, Globe, Phone, Mail, MapPin, MessageCircle, Image }
 const SETTING_GROUPS = [
   {
     id: 'contact',
-    label: 'Contact Information',
+    label: 'Контактная информация',
     icon: Phone,
     fields: [
-      { key: 'phone1', label: 'Phone Number 1', type: 'text', placeholder: '+998 XX XXX XX XX' },
-      { key: 'phone2', label: 'Phone Number 2', type: 'text', placeholder: '+998 XX XXX XX XX' },
-      { key: 'email', label: 'Email Address', type: 'text', placeholder: 'info@pneumax.uz' },
-      { key: 'workingHours', label: 'Working Hours', type: 'text', placeholder: 'Mon-Sat: 09:00 - 18:00' },
+      { key: 'phone1', label: 'Номер телефона 1', type: 'text', placeholder: '+998 XX XXX XX XX' },
+      { key: 'phone2', label: 'Номер телефона 2', type: 'text', placeholder: '+998 XX XXX XX XX' },
+      { key: 'email', label: 'Электронная почта', type: 'text', placeholder: 'info@pneumax.uz' },
+      { key: 'workingHours', label: 'Часы работы', type: 'text', placeholder: 'Пн-Сб: 09:00 - 18:00' },
     ],
   },
   {
     id: 'address',
-    label: 'Company Address',
+    label: 'Адрес компании',
     icon: MapPin,
     fields: [
-      { key: 'address_uz', label: 'Address (UZ)', type: 'text' },
-      { key: 'address_ru', label: 'Address (RU)', type: 'text' },
-      { key: 'address_en', label: 'Address (EN)', type: 'text' },
+      { key: 'address_uz', label: 'Адрес (UZ)', type: 'text' },
+      { key: 'address_ru', label: 'Адрес (RU)', type: 'text' },
+      { key: 'address_en', label: 'Адрес (EN)', type: 'text' },
     ],
   },
   {
     id: 'social',
-    label: 'Social Media Links',
+    label: 'Социальные сети',
     icon: Globe,
     fields: [
       { key: 'instagram', label: 'Instagram URL', type: 'text', placeholder: 'https://instagram.com/...' },
@@ -37,12 +37,12 @@ const SETTING_GROUPS = [
   },
   {
     id: 'site',
-    label: 'Site Settings',
+    label: 'Настройки сайта',
     icon: MessageCircle,
     fields: [
-      { key: 'siteName', label: 'Site Name', type: 'text', placeholder: 'PneuMax' },
-      { key: 'logoText', label: 'Logo Text', type: 'text', placeholder: 'PNEUMAX' },
-      { key: 'logoImage', label: 'Logo Image', type: 'image' },
+      { key: 'siteName', label: 'Название сайта', type: 'text', placeholder: 'PneuMax' },
+      { key: 'logoText', label: 'Текст логотипа', type: 'text', placeholder: 'PNEUMAX' },
+      { key: 'logoImage', label: 'Изображение логотипа', type: 'image' },
     ],
   },
 ]
@@ -111,15 +111,15 @@ export default function AdminSettings() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-          <p className="text-gray-600 text-sm">Manage site-wide settings and contact information</p>
+          <h1 className="text-2xl font-bold text-gray-900">Настройки</h1>
+          <p className="text-gray-600 text-sm">Управление всеми настройками сайта</p>
         </div>
         <button
           onClick={handleSave}
           disabled={saving}
           className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium disabled:opacity-50"
         >
-          {saved ? <><Check size={18} /> Saved!</> : saving ? 'Saving...' : <><Save size={18} /> Save All</>}
+          {saved ? <><Check size={18} /> Сохранено!</> : saving ? 'Сохранение...' : <><Save size={18} /> Сохранить всё</>}
         </button>
       </div>
 
@@ -151,10 +151,10 @@ export default function AdminSettings() {
                           ) : (
                             <Upload size={16} />
                           )}
-                          <span>{settings[field.key] ? 'Change Logo' : 'Upload Logo'}</span>
+                          <span>{settings[field.key] ? 'Сменить лого' : 'Загрузить лого'}</span>
                           <input type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" disabled={uploading} />
                         </label>
-                        <p className="text-xs text-gray-500">Max 5MB. Recommended: PNG or SVG with transparent background</p>
+                        <p className="text-xs text-gray-500">Макс. 5MB. Рекомендуется: PNG или SVG с прозрачным фоном</p>
                       </div>
                     ) : field.type === 'textarea' ? (
                       <textarea
@@ -187,7 +187,7 @@ export default function AdminSettings() {
           disabled={saving}
           className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium disabled:opacity-50"
         >
-          {saved ? <><Check size={18} /> Saved!</> : saving ? 'Saving...' : <><Save size={18} /> Save All Settings</>}
+          {saved ? <><Check size={18} /> Сохранено!</> : saving ? 'Сохранение...' : <><Save size={18} /> Сохранить все настройки</>}
         </button>
       </div>
     </div>

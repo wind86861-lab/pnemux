@@ -120,7 +120,7 @@ export default function AdminProducts() {
       const res = await uploadAPI.single(fd)
       setForm(prev => ({ ...prev, images: [...prev.images, res.data.url] }))
     } catch (err) {
-      alert('Upload failed')
+      alert('Ошибка загрузки')
     } finally {
       setUploading(false)
     }
@@ -134,7 +134,7 @@ export default function AdminProducts() {
     e.preventDefault()
 
     if (!form.category) {
-      alert('Please select a category and subcategory')
+      alert('Пожалуйста, выберите категорию и подкатегорию')
       return
     }
 
@@ -153,17 +153,17 @@ export default function AdminProducts() {
       setShowModal(false)
       fetchProducts()
     } catch (err) {
-      alert(err.response?.data?.message || 'Error saving product')
+      alert(err.response?.data?.message || 'Ошибка сохранения товара')
     }
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this product?')) return
+    if (!confirm('Удалить этот товар?')) return
     try {
       await productsAPI.delete(id)
       fetchProducts()
     } catch (err) {
-      alert('Error deleting product')
+      alert('Ошибка удаления товара')
     }
   }
 
@@ -172,7 +172,7 @@ export default function AdminProducts() {
       await productsAPI.update(product._id, { ...product, isFeatured: !product.isFeatured, category: product.category?._id || product.category })
       fetchProducts()
     } catch (err) {
-      alert('Error updating product')
+      alert('Ошибка обновления товара')
     }
   }
 
@@ -181,7 +181,7 @@ export default function AdminProducts() {
       await productsAPI.update(product._id, { ...product, isActive: !product.isActive, category: product.category?._id || product.category })
       fetchProducts()
     } catch (err) {
-      alert('Error updating product')
+      alert('Ошибка обновления товара')
     }
   }
 
@@ -191,11 +191,11 @@ export default function AdminProducts() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Mahsulotlar</h1>
-          <p className="text-gray-600 text-sm">Jami {total} ta mahsulot</p>
+          <h1 className="text-2xl font-bold text-gray-900">Товары</h1>
+          <p className="text-gray-600 text-sm">Всего {total} товаров</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
-          <Plus size={18} /> Mahsulot qo'shish
+          <Plus size={18} /> Добавить товар
         </button>
       </div>
 
@@ -204,7 +204,7 @@ export default function AdminProducts() {
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Mahsulotlarni qidirish..."
+            placeholder="Поиск товаров..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
@@ -215,7 +215,7 @@ export default function AdminProducts() {
           onChange={e => { setFilterCategory(e.target.value); setPage(1) }}
           className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
         >
-          <option value="">Barcha kategoriyalar</option>
+          <option value="">Все категории</option>
           {parentCategories.map(cat => (
             <optgroup key={cat._id} label={cat.name?.uz}>
               {subcategoriesOf(cat._id).map(sub => (
@@ -231,21 +231,21 @@ export default function AdminProducts() {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 border-b border-gray-100">
               <tr>
-                <th className="text-left p-4 font-medium text-gray-600">Rasm</th>
-                <th className="text-left p-4 font-medium text-gray-600">Nomi (UZ)</th>
-                <th className="text-left p-4 font-medium text-gray-600">Kategoriya</th>
-                <th className="text-left p-4 font-medium text-gray-600">Narx</th>
-                <th className="text-left p-4 font-medium text-gray-600">Ombor</th>
-                <th className="text-left p-4 font-medium text-gray-600">Taniqli</th>
-                <th className="text-left p-4 font-medium text-gray-600">Holat</th>
-                <th className="text-right p-4 font-medium text-gray-600">Amallar</th>
+                <th className="text-left p-4 font-medium text-gray-600">Фото</th>
+                <th className="text-left p-4 font-medium text-gray-600">Название (UZ)</th>
+                <th className="text-left p-4 font-medium text-gray-600">Категория</th>
+                <th className="text-left p-4 font-medium text-gray-600">Цена</th>
+                <th className="text-left p-4 font-medium text-gray-600">Склад</th>
+                <th className="text-left p-4 font-medium text-gray-600">Избранный</th>
+                <th className="text-left p-4 font-medium text-gray-600">Статус</th>
+                <th className="text-right p-4 font-medium text-gray-600">Действия</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {loading ? (
-                <tr><td colSpan={7} className="p-8 text-center text-gray-400">Loading...</td></tr>
+                <tr><td colSpan={7} className="p-8 text-center text-gray-400">Загрузка...</td></tr>
               ) : products.length === 0 ? (
-                <tr><td colSpan={8} className="p-8 text-center text-gray-400">No products found</td></tr>
+                <tr><td colSpan={8} className="p-8 text-center text-gray-400">Товары не найдены</td></tr>
               ) : products.map(product => (
                 <tr key={product._id} className="hover:bg-gray-50">
                   <td className="p-4">
@@ -286,7 +286,7 @@ export default function AdminProducts() {
                     <button
                       onClick={() => toggleFeatured(product)}
                       className="p-1 hover:bg-yellow-50 rounded transition-colors"
-                      title={product.isFeatured ? 'Taniqlilardan olib tashlash' : 'Taniqli qilish'}
+                      title={product.isFeatured ? 'Убрать из избранных' : 'Добавить в избранные'}
                     >
                       {product.isFeatured ? <Star size={18} className="text-yellow-500 fill-yellow-500" /> : <StarOff size={18} className="text-gray-300" />}
                     </button>
@@ -295,9 +295,9 @@ export default function AdminProducts() {
                     <button
                       onClick={() => toggleActive(product)}
                       className={`text-xs px-2 py-1 rounded-full font-medium transition-colors ${product.isActive ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200'}`}
-                      title={product.isActive ? 'O\'chirish uchun bosing' : 'Yoqish uchun bosing'}
+                      title={product.isActive ? 'Нажмите чтобы отключить' : 'Нажмите чтобы включить'}
                     >
-                      {product.isActive ? 'Faol' : 'Nofaol'}
+                      {product.isActive ? 'Активен' : 'Неактивен'}
                     </button>
                   </td>
                   <td className="p-4 text-right">
@@ -313,10 +313,10 @@ export default function AdminProducts() {
         </div>
         {totalPages > 1 && (
           <div className="flex items-center justify-between p-4 border-t border-gray-100">
-            <span className="text-sm text-gray-500">Page {page} of {totalPages}</span>
+            <span className="text-sm text-gray-500">Стр. {page} из {totalPages}</span>
             <div className="flex gap-2">
-              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Prev</button>
-              <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Next</button>
+              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Назад</button>
+              <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Вперёд</button>
             </div>
           </div>
         )}
@@ -326,12 +326,12 @@ export default function AdminProducts() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center overflow-y-auto p-4 pt-10">
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-xl">
             <div className="flex items-center justify-between p-5 border-b">
-              <h2 className="text-lg font-bold text-gray-900">{editing ? 'Mahsulotni tahrirlash' : 'Mahsulot qo\'shish'}</h2>
+              <h2 className="text-lg font-bold text-gray-900">{editing ? 'Редактировать товар' : 'Добавить товар'}</h2>
               <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X size={20} /></button>
             </div>
             <form onSubmit={handleSubmit} className="p-5 space-y-5 max-h-[75vh] overflow-y-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Mahsulot nomi</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Название товара</label>
                 <div className="space-y-2">
                   <input placeholder="Nomi (UZ)" value={form.name.uz} onChange={e => setForm(f => ({ ...f, name: { ...f.name, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                   <input placeholder="Nomi (RU)" value={form.name.ru} onChange={e => setForm(f => ({ ...f, name: { ...f.name, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
@@ -340,7 +340,7 @@ export default function AdminProducts() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Ta'rif</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Описание</label>
                 <div className="space-y-2">
                   <textarea placeholder="Ta'rif (UZ)" value={form.description.uz} onChange={e => setForm(f => ({ ...f, description: { ...f.description, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows={2} />
                   <textarea placeholder="Ta'rif (RU)" value={form.description.ru} onChange={e => setForm(f => ({ ...f, description: { ...f.description, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" rows={2} />
@@ -350,39 +350,39 @@ export default function AdminProducts() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Narx</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Цена</label>
                   <input type="number" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Ombor</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Склад</label>
                   <input type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Chegirma turi</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Тип скидки</label>
                   <select value={form.discountType} onChange={e => setForm(f => ({ ...f, discountType: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="fixed">Qat'iy summa</option>
-                    <option value="percentage">Foiz %</option>
+                    <option value="fixed">Фиксированная сумма</option>
+                    <option value="percentage">Процент %</option>
                   </select>
                 </div>
                 <div className="col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Chegirma {form.discountType === 'percentage' ? '(%)' : '(Summa)'}
+                    Скидка {form.discountType === 'percentage' ? '(%)' : '(Сумма)'}
                   </label>
                   <input
                     type="number"
                     value={form.discountValue}
                     onChange={e => setForm(f => ({ ...f, discountValue: e.target.value }))}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder={form.discountType === 'percentage' ? 'Masalan: 10 (10% uchun)' : 'Masalan: 50000'}
+                    placeholder={form.discountType === 'percentage' ? 'Пример: 10 (для 10%)' : 'Пример: 50000'}
                     max={form.discountType === 'percentage' ? '100' : undefined}
                     min="0"
                   />
                   {form.price && form.discountValue && (
                     <p className="text-xs text-gray-500 mt-1">
-                      Yakuniy narx: <span className="font-semibold text-green-600">
+                      Итоговая цена: <span className="font-semibold text-green-600">
                         {form.discountType === 'percentage'
                           ? Math.round(Number(form.price) * (1 - Math.min(Number(form.discountValue), 100) / 100)).toLocaleString()
                           : Math.max(0, Number(form.price) - Number(form.discountValue)).toLocaleString()
@@ -395,32 +395,32 @@ export default function AdminProducts() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Kategoriya</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Категория</label>
                   <select
                     value={formParentCat}
                     onChange={e => { setFormParentCat(e.target.value); setForm(f => ({ ...f, category: '' })) }}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Kategoriyani tanlang</option>
+                    <option value="">Выберите категорию</option>
                     {parentCategories.map(c => <option key={c._id} value={c._id}>{c.name?.uz}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subkategoriya</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Подкатегория</label>
                   <select
                     value={form.category}
                     onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     disabled={!formParentCat}
                   >
-                    <option value="">{formParentCat ? 'Subkategoriyani tanlang' : '← Avval kategoriyani tanlang'}</option>
+                    <option value="">{formParentCat ? 'Выберите подкатегорию' : '← Сначала выберите категорию'}</option>
                     {subcategoriesOf(formParentCat).map(c => <option key={c._id} value={c._id}>{c.name?.uz}</option>)}
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Rasmlar</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Изображения</label>
                 <div className="flex flex-wrap gap-3">
                   {form.images.map((img, i) => (
                     <div key={i} className="relative w-20 h-20 rounded-lg overflow-hidden border border-gray-200">
@@ -438,17 +438,17 @@ export default function AdminProducts() {
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" checked={form.isFeatured} onChange={e => setForm(f => ({ ...f, isFeatured: e.target.checked }))} className="rounded" />
-                  <span className="text-gray-700">Taniqli mahsulot</span>
+                  <span className="text-gray-700">Избранный товар</span>
                 </label>
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="rounded" />
-                  <span className="text-gray-700">Faol</span>
+                  <span className="text-gray-700">Активен</span>
                 </label>
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t">
-                <button type="button" onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-sm">Bekor qilish</button>
-                <button type="submit" className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-sm">{editing ? 'Yangilash' : 'Yaratish'}</button>
+                <button type="button" onClick={() => setShowModal(false)} className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-sm">Отмена</button>
+                <button type="submit" className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-sm">{editing ? 'Обновить' : 'Создать'}</button>
               </div>
             </form>
           </div>

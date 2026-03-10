@@ -97,7 +97,7 @@ export default function AdminBranches() {
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this branch?')) return
+    if (!confirm('Удалить этот филиал?')) return
     try { await branchesAPI.delete(id); fetchBranches() }
     catch (err) { alert('Error') }
   }
@@ -106,19 +106,19 @@ export default function AdminBranches() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Filiallar</h1>
-          <p className="text-gray-600 text-sm">{branches.length} ta filial</p>
+          <h1 className="text-2xl font-bold text-gray-900">Филиалы</h1>
+          <p className="text-gray-600 text-sm">{branches.length} филиалов</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
-          <Plus size={18} /> Filial qo'shish
+          <Plus size={18} /> Добавить филиал
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {loading ? (
-          <div className="col-span-2 text-center py-12 text-gray-400">Loading...</div>
+          <div className="col-span-2 text-center py-12 text-gray-400">Загрузка...</div>
         ) : branches.length === 0 ? (
-          <div className="col-span-2 text-center py-12 text-gray-400">No branches</div>
+          <div className="col-span-2 text-center py-12 text-gray-400">Филиалов нет</div>
         ) : branches.map(b => (
           <div key={b._id} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <div className="flex items-start justify-between mb-3">
@@ -143,12 +143,12 @@ export default function AdminBranches() {
                 </div>
               ))}
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-xs text-gray-400">Director: {b.director?.uz || '—'}</span>
+                <span className="text-xs text-gray-400">Директор: {b.director?.ru || b.director?.uz || '—'}</span>
                 {b.showOnHomepage && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">Bosh sahifa</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">На главной</span>
                 )}
                 <span className={`ml-auto text-xs px-2 py-0.5 rounded-full ${b.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                  {b.isActive ? 'Faol' : 'Nofaol'}
+                  {b.isActive ? 'Активен' : 'Неактивен'}
                 </span>
               </div>
             </div>
@@ -160,12 +160,12 @@ export default function AdminBranches() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center overflow-y-auto p-4 pt-10">
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-xl">
             <div className="flex items-center justify-between p-5 border-b">
-              <h2 className="text-lg font-bold">{editing ? 'Filialni tahrirlash' : 'Filial qo\'shish'}</h2>
+              <h2 className="text-lg font-bold">{editing ? 'Редактировать филиал' : 'Добавить филиал'}</h2>
               <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X size={20} /></button>
             </div>
             <form onSubmit={handleSubmit} className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Branch Title</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Название филиала</label>
                 <input placeholder="Title (UZ)" value={form.title.uz} onChange={e => setForm(f => ({ ...f, title: { ...f.title, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" required />
                 <input placeholder="Title (RU)" value={form.title.ru} onChange={e => setForm(f => ({ ...f, title: { ...f.title, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" required />
                 <input placeholder="Title (EN)" value={form.title.en} onChange={e => setForm(f => ({ ...f, title: { ...f.title, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" required />
@@ -173,17 +173,17 @@ export default function AdminBranches() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Название компании</label>
                   <input value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">INN</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">ИНН</label>
                   <input value={form.inn} onChange={e => setForm(f => ({ ...f, inn: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Director</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Директор</label>
                 <input placeholder="Director (UZ)" value={form.director.uz} onChange={e => setForm(f => ({ ...f, director: { ...f.director, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" />
                 <input placeholder="Director (RU)" value={form.director.ru} onChange={e => setForm(f => ({ ...f, director: { ...f.director, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" />
                 <input placeholder="Director (EN)" value={form.director.en} onChange={e => setForm(f => ({ ...f, director: { ...f.director, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
@@ -191,29 +191,29 @@ export default function AdminBranches() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Founded Date</label>
-                  <input value={form.founded} onChange={e => setForm(f => ({ ...f, founded: e.target.value }))} placeholder="e.g. 24.01.2024" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Дата основания</label>
+                  <input value={form.founded} onChange={e => setForm(f => ({ ...f, founded: e.target.value }))} placeholder="напр. 24.01.2024" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Порядок</label>
                   <input type="number" value={form.order} onChange={e => setForm(f => ({ ...f, order: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Адрес</label>
                 <input placeholder="Address (UZ)" value={form.address.uz} onChange={e => setForm(f => ({ ...f, address: { ...f.address, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" />
                 <input placeholder="Address (RU)" value={form.address.ru} onChange={e => setForm(f => ({ ...f, address: { ...f.address, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" />
                 <input placeholder="Address (EN)" value={form.address.en} onChange={e => setForm(f => ({ ...f, address: { ...f.address, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Address</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Полный адрес</label>
                 <input value={form.fullAddress} onChange={e => setForm(f => ({ ...f, fullAddress: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone Numbers</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Номера телефонов</label>
                 {form.phones.map((phone, i) => (
                   <div key={i} className="flex gap-2 mb-2">
                     <input value={phone} onChange={e => updatePhone(i, e.target.value)} placeholder="+998 XX XXX XX XX" className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm" />
@@ -222,11 +222,11 @@ export default function AdminBranches() {
                     )}
                   </div>
                 ))}
-                <button type="button" onClick={addPhone} className="text-sm text-blue-600 hover:underline">+ Add phone</button>
+                <button type="button" onClick={addPhone} className="text-sm text-blue-600 hover:underline">+ Добавить телефон</button>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Filial rasmi</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Фото филиала</label>
                 <div className="flex items-center gap-4">
                   {form.image && (
                     <div className="relative w-32 h-20 rounded-lg overflow-hidden border border-gray-200">
@@ -236,7 +236,7 @@ export default function AdminBranches() {
                   )}
                   <label className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-blue-400 hover:text-blue-500 cursor-pointer">
                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
-                    {imgUploading ? 'Yuklanmoqda...' : 'Rasm yuklash'}
+                    {imgUploading ? 'Загрузка...' : 'Загрузить фото'}
                   </label>
                 </div>
               </div>
@@ -249,17 +249,17 @@ export default function AdminBranches() {
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.showOnHomepage} onChange={e => setForm(f => ({ ...f, showOnHomepage: e.target.checked }))} className="w-4 h-4 text-blue-600 rounded" />
-                  <span className="text-sm text-gray-700">Bosh sahifada ko'rsatish</span>
+                  <span className="text-sm text-gray-700">Показывать на главной</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="w-4 h-4 text-blue-600 rounded" />
-                  <span className="text-sm text-gray-700">Faol</span>
+                  <span className="text-sm text-gray-700">Активен</span>
                 </label>
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t">
-                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded-lg text-sm font-medium hover:bg-gray-50">Bekor qilish</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Yangilash' : 'Yaratish'}</button>
+                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded-lg text-sm font-medium hover:bg-gray-50">Отмена</button>
+                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Обновить' : 'Создать'}</button>
               </div>
             </form>
           </div>

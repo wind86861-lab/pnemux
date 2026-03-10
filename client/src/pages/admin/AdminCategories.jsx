@@ -83,9 +83,9 @@ export default function AdminCategories() {
   const handleDelete = async (id) => {
     const subs = subcategoriesOf(id)
     if (subs.length > 0) {
-      if (!confirm(`This category has ${subs.length} subcategory(ies). Delete anyway?`)) return
+      if (!confirm(`У этой категории ${subs.length} подкатегорий. Удалить всё равно?`)) return
     } else {
-      if (!confirm('Delete this category?')) return
+      if (!confirm('Удалить эту категорию?')) return
     }
     try { await categoriesAPI.delete(id); fetchCategories() }
     catch (err) { alert('Error deleting') }
@@ -106,15 +106,15 @@ export default function AdminCategories() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Categories</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Категории</h1>
           <p className="text-gray-500 text-sm mt-0.5">
-            <span className="font-medium text-blue-600">{totalCategories}</span> categories &middot;{' '}
-            <span className="font-medium text-purple-600">{totalSubcategories}</span> subcategories
+            <span className="font-medium text-blue-600">{totalCategories}</span> категорий &middot;{' '}
+            <span className="font-medium text-purple-600">{totalSubcategories}</span> подкатегорий
           </p>
         </div>
         <div className="flex gap-2">
           <button onClick={() => openCreate('')} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
-            <Plus size={16} /> Add Category
+            <Plus size={16} /> Добавить категорию
           </button>
         </div>
       </div>
@@ -125,25 +125,25 @@ export default function AdminCategories() {
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Search categories..."
+            placeholder="Поиск категорий..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div className="flex bg-gray-100 rounded-lg p-1 text-sm">
-          <button onClick={() => setActiveTab('tree')} className={`px-3 py-1.5 rounded-md font-medium transition-all ${activeTab === 'tree' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}>Tree View</button>
-          <button onClick={() => setActiveTab('flat')} className={`px-3 py-1.5 rounded-md font-medium transition-all ${activeTab === 'flat' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}>Flat List</button>
+          <button onClick={() => setActiveTab('tree')} className={`px-3 py-1.5 rounded-md font-medium transition-all ${activeTab === 'tree' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}>Дерево</button>
+          <button onClick={() => setActiveTab('flat')} className={`px-3 py-1.5 rounded-md font-medium transition-all ${activeTab === 'flat' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700'}`}>Список</button>
         </div>
       </div>
 
       {loading ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-400">Loading...</div>
+        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-400">Загрузка...</div>
       ) : activeTab === 'tree' ? (
         /* Tree View */
         <div className="space-y-3">
           {filteredParents.length === 0 ? (
-            <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-400">No categories found</div>
+            <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-400">Категории не найдены</div>
           ) : filteredParents.map(cat => {
             const subs = subcategoriesOf(cat._id)
             const isExpanded = expandedCategories[cat._id] === true
@@ -168,9 +168,9 @@ export default function AdminCategories() {
                       onClick={() => toggleActive(cat)}
                       className={`text-xs px-2 py-1 rounded-full font-medium ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
                     >
-                      {cat.isActive ? 'Active' : 'Inactive'}
+                      {cat.isActive ? 'Активен' : 'Неактивен'}
                     </button>
-                    <button onClick={() => openCreate(cat._id)} className="p-1.5 hover:bg-purple-50 rounded-lg text-purple-600" title="Add Subcategory"><Plus size={15} /></button>
+                    <button onClick={() => openCreate(cat._id)} className="p-1.5 hover:bg-purple-50 rounded-lg text-purple-600" title="Добавить подкатегорию"><Plus size={15} /></button>
                     <button onClick={() => openEdit(cat)} className="p-1.5 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={15} /></button>
                     <button onClick={() => handleDelete(cat._id)} className="p-1.5 hover:bg-red-50 rounded-lg text-red-500"><Trash2 size={15} /></button>
                   </div>
@@ -195,7 +195,7 @@ export default function AdminCategories() {
                             onClick={() => toggleActive(sub)}
                             className={`text-xs px-2 py-1 rounded-full font-medium ${sub.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
                           >
-                            {sub.isActive ? 'Active' : 'Inactive'}
+                            {sub.isActive ? 'Активен' : 'Неактивен'}
                           </button>
                           <button onClick={() => openEdit(sub)} className="p-1.5 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={14} /></button>
                           <button onClick={() => handleDelete(sub._id)} className="p-1.5 hover:bg-red-50 rounded-lg text-red-500"><Trash2 size={14} /></button>
@@ -206,8 +206,8 @@ export default function AdminCategories() {
                 )}
                 {isExpanded && subs.length === 0 && (
                   <div className="border-t border-gray-100 bg-gray-50/50 px-12 py-3 text-xs text-gray-400 flex items-center gap-2">
-                    <span>No subcategories.</span>
-                    <button onClick={() => openCreate(cat._id)} className="text-purple-600 hover:underline font-medium">+ Add one</button>
+                    <span>Подкатегорий нет.</span>
+                    <button onClick={() => openCreate(cat._id)} className="text-purple-600 hover:underline font-medium">+ Добавить</button>
                   </div>
                 )}
               </div>
@@ -220,18 +220,18 @@ export default function AdminCategories() {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 border-b border-gray-100">
               <tr>
-                <th className="text-left p-4 font-medium text-gray-600">Type</th>
-                <th className="text-left p-4 font-medium text-gray-600">Name (UZ)</th>
-                <th className="text-left p-4 font-medium text-gray-600">Name (RU)</th>
-                <th className="text-left p-4 font-medium text-gray-600">Parent</th>
-                <th className="text-left p-4 font-medium text-gray-600">Order</th>
-                <th className="text-left p-4 font-medium text-gray-600">Status</th>
-                <th className="text-right p-4 font-medium text-gray-600">Actions</th>
+                <th className="text-left p-4 font-medium text-gray-600">Тип</th>
+                <th className="text-left p-4 font-medium text-gray-600">Название (UZ)</th>
+                <th className="text-left p-4 font-medium text-gray-600">Название (RU)</th>
+                <th className="text-left p-4 font-medium text-gray-600">Родитель</th>
+                <th className="text-left p-4 font-medium text-gray-600">Порядок</th>
+                <th className="text-left p-4 font-medium text-gray-600">Статус</th>
+                <th className="text-right p-4 font-medium text-gray-600">Действия</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {filteredAll.length === 0 ? (
-                <tr><td colSpan={7} className="p-8 text-center text-gray-400">No categories found</td></tr>
+                <tr><td colSpan={7} className="p-8 text-center text-gray-400">Категории не найдены</td></tr>
               ) : filteredAll.map(cat => (
                 <tr key={cat._id} className={`hover:bg-gray-50 ${cat.parent ? 'bg-gray-50/30' : ''}`}>
                   <td className="p-4">
@@ -268,10 +268,10 @@ export default function AdminCategories() {
           <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl">
             <div className="flex items-center justify-between p-5 border-b">
               <div>
-                <h2 className="text-lg font-bold">{editing ? 'Edit' : 'Add'} {form.parent ? 'Subcategory' : 'Category'}</h2>
+                <h2 className="text-lg font-bold">{editing ? 'Редактировать' : 'Добавить'} {form.parent ? 'подкатегорию' : 'категорию'}</h2>
                 {form.parent && (
                   <p className="text-xs text-gray-500 mt-0.5">
-                    Under: <span className="font-medium text-blue-600">{parentCategories.find(c => c._id === form.parent)?.name?.uz}</span>
+                    В составе: <span className="font-medium text-blue-600">{parentCategories.find(c => c._id === form.parent)?.name?.uz}</span>
                   </p>
                 )}
               </div>
@@ -279,33 +279,33 @@ export default function AdminCategories() {
             </div>
             <form onSubmit={handleSubmit} className="p-5 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Название</label>
                 <input placeholder="Name (UZ)" value={form.name.uz} onChange={e => setForm(f => ({ ...f, name: { ...f.name, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                 <input placeholder="Name (RU)" value={form.name.ru} onChange={e => setForm(f => ({ ...f, name: { ...f.name, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
                 <input placeholder="Name (EN)" value={form.name.en} onChange={e => setForm(f => ({ ...f, name: { ...f.name, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Родительская категория</label>
                   <select value={form.parent} onChange={e => setForm(f => ({ ...f, parent: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">None (top-level category)</option>
+                    <option value="">Нет (верхний уровень)</option>
                     {parentCategories.filter(c => c._id !== editing).map(c => (
                       <option key={c._id} value={c._id}>{c.name?.uz}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Display Order</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Порядок</label>
                   <input type="number" value={form.order} onChange={e => setForm(f => ({ ...f, order: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
               </div>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="w-4 h-4 text-blue-600 rounded" />
-                <span className="text-sm text-gray-700">Active (visible to users)</span>
+                <span className="text-sm text-gray-700">Активен (видно пользователям)</span>
               </label>
               <div className="flex justify-end gap-3 pt-3 border-t">
-                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Update' : 'Create'}</button>
+                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50">Отмена</button>
+                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Обновить' : 'Создать'}</button>
               </div>
             </form>
           </div>

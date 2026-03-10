@@ -66,12 +66,12 @@ export default function AdminDashboard() {
   }
 
   const cards = [
-    { name: 'Products', value: stats.products, icon: Package, color: 'bg-blue-500' },
-    { name: 'Blog Posts', value: stats.blogs, icon: FileText, color: 'bg-green-500' },
-    { name: 'Branches', value: stats.branches, icon: MapPin, color: 'bg-purple-500' },
-    { name: 'Total Requests', value: stats.requests, icon: MessageSquare, color: 'bg-orange-500' },
-    { name: 'New Requests', value: stats.newRequests, icon: AlertCircle, color: 'bg-red-500' },
-    { name: 'FAQ Items', value: stats.faqs, icon: HelpCircle, color: 'bg-indigo-500' },
+    { name: 'Товары', value: stats.products, icon: Package, color: 'bg-blue-500' },
+    { name: 'Статьи блога', value: stats.blogs, icon: FileText, color: 'bg-green-500' },
+    { name: 'Филиалы', value: stats.branches, icon: MapPin, color: 'bg-purple-500' },
+    { name: 'Всего заявок', value: stats.requests, icon: MessageSquare, color: 'bg-orange-500' },
+    { name: 'Новых заявок', value: stats.newRequests, icon: AlertCircle, color: 'bg-red-500' },
+    { name: 'Вопросы FAQ', value: stats.faqs, icon: HelpCircle, color: 'bg-indigo-500' },
   ]
 
   const statusColors = {
@@ -84,8 +84,8 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-1">Website content management overview</p>
+        <h1 className="text-2xl font-bold text-gray-900">Панель управления</h1>
+        <p className="text-gray-600 mt-1">Обзор управления контентом сайта</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -109,7 +109,7 @@ export default function AdminDashboard() {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">
         <div className="p-5 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Requests</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Последние заявки</h2>
         </div>
         <div className="divide-y divide-gray-100">
           {recentRequests.length > 0 ? (
@@ -135,7 +135,7 @@ export default function AdminDashboard() {
               </div>
             ))
           ) : (
-            <div className="p-8 text-center text-gray-500">No requests yet</div>
+            <div className="p-8 text-center text-gray-500">Заявок пока нет</div>
           )}
         </div>
       </div>

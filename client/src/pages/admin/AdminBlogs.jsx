@@ -78,7 +78,7 @@ export default function AdminBlogs() {
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this blog post?')) return
+    if (!confirm('Удалить эту статью?')) return
     try { await blogsAPI.delete(id); fetchBlogs() }
     catch (err) { alert('Error') }
   }
@@ -89,11 +89,11 @@ export default function AdminBlogs() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Blog Posts</h1>
-          <p className="text-gray-600 text-sm">{total} posts</p>
+          <h1 className="text-2xl font-bold text-gray-900">Статьи блога</h1>
+          <p className="text-gray-600 text-sm">{total} статей</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
-          <Plus size={18} /> Add Post
+          <Plus size={18} /> Добавить статью
         </button>
       </div>
 
@@ -101,21 +101,21 @@ export default function AdminBlogs() {
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-100">
             <tr>
-              <th className="text-left p-4 font-medium text-gray-600">Image</th>
-              <th className="text-left p-4 font-medium text-gray-600">Title (UZ)</th>
-              <th className="text-left p-4 font-medium text-gray-600">Author</th>
-              <th className="text-left p-4 font-medium text-gray-600">Views</th>
-              <th className="text-left p-4 font-medium text-gray-600">Taniqli</th>
-              <th className="text-left p-4 font-medium text-gray-600">Status</th>
-              <th className="text-left p-4 font-medium text-gray-600">Date</th>
-              <th className="text-right p-4 font-medium text-gray-600">Actions</th>
+              <th className="text-left p-4 font-medium text-gray-600">Фото</th>
+              <th className="text-left p-4 font-medium text-gray-600">Заголовок (UZ)</th>
+              <th className="text-left p-4 font-medium text-gray-600">Автор</th>
+              <th className="text-left p-4 font-medium text-gray-600">Просмотры</th>
+              <th className="text-left p-4 font-medium text-gray-600">Избранная</th>
+              <th className="text-left p-4 font-medium text-gray-600">Статус</th>
+              <th className="text-left p-4 font-medium text-gray-600">Дата</th>
+              <th className="text-right p-4 font-medium text-gray-600">Действия</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {loading ? (
-              <tr><td colSpan={8} className="p-8 text-center text-gray-400">Loading...</td></tr>
+              <tr><td colSpan={8} className="p-8 text-center text-gray-400">Загрузка...</td></tr>
             ) : blogs.length === 0 ? (
-              <tr><td colSpan={8} className="p-8 text-center text-gray-400">No blog posts</td></tr>
+              <tr><td colSpan={8} className="p-8 text-center text-gray-400">Статей нет</td></tr>
             ) : blogs.map(blog => (
               <tr key={blog._id} className="hover:bg-gray-50">
                 <td className="p-4">
@@ -128,12 +128,12 @@ export default function AdminBlogs() {
                 <td className="p-4 text-gray-500 flex items-center gap-1"><Eye size={14} /> {blog.views}</td>
                 <td className="p-4">
                   <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.featured ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
-                    {blog.featured ? '⭐ Taniqli' : '—'}
+                    {blog.featured ? '⭐ Избранная' : '—'}
                   </span>
                 </td>
                 <td className="p-4">
                   <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.isPublished ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                    {blog.isPublished ? 'Published' : 'Draft'}
+                    {blog.isPublished ? 'Опубликовано' : 'Черновик'}
                   </span>
                 </td>
                 <td className="p-4 text-gray-500 text-xs">{new Date(blog.createdAt).toLocaleDateString()}</td>
@@ -149,10 +149,10 @@ export default function AdminBlogs() {
         </table>
         {totalPages > 1 && (
           <div className="flex items-center justify-between p-4 border-t border-gray-100">
-            <span className="text-sm text-gray-500">Page {page} of {totalPages}</span>
+            <span className="text-sm text-gray-500">Стр. {page} из {totalPages}</span>
             <div className="flex gap-2">
-              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Prev</button>
-              <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Next</button>
+              <button disabled={page <= 1} onClick={() => setPage(p => p - 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Назад</button>
+              <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)} className="px-3 py-1.5 border rounded-lg text-sm disabled:opacity-50">Вперёд</button>
             </div>
           </div>
         )}
@@ -162,38 +162,38 @@ export default function AdminBlogs() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center overflow-y-auto p-4 pt-10">
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-xl">
             <div className="flex items-center justify-between p-5 border-b">
-              <h2 className="text-lg font-bold">{editing ? 'Edit Post' : 'Add Post'}</h2>
+              <h2 className="text-lg font-bold">{editing ? 'Редактировать статью' : 'Добавить статью'}</h2>
               <button onClick={() => setShowModal(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X size={20} /></button>
             </div>
             <form onSubmit={handleSubmit} className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Заголовок</label>
                 <input placeholder="Title (UZ)" value={form.title.uz} onChange={e => setForm(f => ({ ...f, title: { ...f.title, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" required />
                 <input placeholder="Title (RU)" value={form.title.ru} onChange={e => setForm(f => ({ ...f, title: { ...f.title, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" required />
                 <input placeholder="Title (EN)" value={form.title.en} onChange={e => setForm(f => ({ ...f, title: { ...f.title, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" required />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Краткое описание</label>
                 <textarea placeholder="Excerpt (UZ)" value={form.excerpt.uz} onChange={e => setForm(f => ({ ...f, excerpt: { ...f.excerpt, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" rows={2} />
                 <textarea placeholder="Excerpt (RU)" value={form.excerpt.ru} onChange={e => setForm(f => ({ ...f, excerpt: { ...f.excerpt, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" rows={2} />
                 <textarea placeholder="Excerpt (EN)" value={form.excerpt.en} onChange={e => setForm(f => ({ ...f, excerpt: { ...f.excerpt, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" rows={2} />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Content</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Полный текст</label>
                 <textarea placeholder="Content (UZ)" value={form.content.uz} onChange={e => setForm(f => ({ ...f, content: { ...f.content, uz: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" rows={4} />
                 <textarea placeholder="Content (RU)" value={form.content.ru} onChange={e => setForm(f => ({ ...f, content: { ...f.content, ru: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm mb-2" rows={4} />
                 <textarea placeholder="Content (EN)" value={form.content.en} onChange={e => setForm(f => ({ ...f, content: { ...f.content, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" rows={4} />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Cover Image</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Обложка</label>
                 <div className="flex items-center gap-4">
                   {form.image && <img src={form.image} alt="" className="w-24 h-16 object-cover rounded-lg border" />}
                   <label className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 text-sm">
                     {uploading ? <div className="animate-spin w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full" /> : <Upload size={16} />}
-                    <span>Upload image</span>
+                    <span>Загрузить изображение</span>
                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                   </label>
                 </div>
@@ -201,29 +201,29 @@ export default function AdminBlogs() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Автор</label>
                   <input value={form.author} onChange={e => setForm(f => ({ ...f, author: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                  <input placeholder="e.g. News, Articles" value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Категория</label>
+                  <input placeholder="напр. Новости, Статьи" value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
               </div>
 
               <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.isPublished} onChange={e => setForm(f => ({ ...f, isPublished: e.target.checked }))} className="w-4 h-4 text-blue-600 rounded" />
-                  <span className="text-sm text-gray-700">Published</span>
+                  <span className="text-sm text-gray-700">Опубликовано</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.featured} onChange={e => setForm(f => ({ ...f, featured: e.target.checked }))} className="w-4 h-4 text-purple-600 rounded" />
-                  <span className="text-sm text-gray-700">⭐ Taniqli (Bosh sahifada ko'rsatish)</span>
+                  <span className="text-sm text-gray-700">⭐ Избранная (показывать на главной)</span>
                 </label>
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t">
-                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded-lg text-sm font-medium hover:bg-gray-50">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Update' : 'Create'}</button>
+                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded-lg text-sm font-medium hover:bg-gray-50">Отмена</button>
+                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">{editing ? 'Обновить' : 'Создать'}</button>
               </div>
             </form>
           </div>

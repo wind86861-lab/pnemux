@@ -16,7 +16,7 @@ export const useLanguage = () => {
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
     const saved = localStorage.getItem('pneumax-language')
-    return saved && ['uz', 'ru', 'en'].includes(saved) ? saved : 'uz'
+    return saved && ['uz', 'ru', 'en'].includes(saved) ? saved : 'ru'
   })
 
   const setLanguage = (lang) => {
