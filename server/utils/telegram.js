@@ -24,7 +24,7 @@ const sendTelegramMessage = async (text) => {
         },
       },
       (res) => {
-        res.on('data', () => {});
+        res.on('data', () => { });
         res.on('end', resolve);
       }
     );
@@ -64,4 +64,34 @@ const formatRequestMessage = (request) => {
   return lines.join('\n');
 };
 
-module.exports = { sendTelegramMessage, formatRequestMessage };
+const formatOrderMessage = (order) => {
+  const statusLabels = {
+    new: '🆕 Новый',
+    processing: '⚙️ В обработке',
+    completed: '✅ Выполнен',
+    cancelled: '❌ Отменён',
+  };
+
+  const lines = [
+    `🛒 <b>Новый заказ!</b>`,
+    ``,
+    `👤 Имя: <b>${order.customerName || '—'}</b>`,
+    `📞 Телефон: <b>${order.customerPhone}</b>`,
+    `📦 Статус: <b>${statusLabels[order.status] || order.status}</b>`,
+    ``,
+    `🧾 <b>Товары:</b>`,
+  ];
+
+  (order.items || []).forEach((item, i) => {
+    lines.push(`  ${i + 1}. ${item.name} × ${item.quantity} = <b>${(item.price * item.quantity).toLocaleString()} so'm</b>`);
+  });
+
+  lines.push(``);
+  lines.push(`💰 Итого: <b>${order.totalPrice.toLocaleString()} so'm</b>`);
+  if (order.comment) lines.push(`💬 Комментарий: <b>${order.comment}</b>`);
+  lines.push(``, `🕐 Время: <b>${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })}</b>`);
+
+  return lines.join('\n');
+};
+
+module.exports = { sendTelegramMessage, formatRequestMessage, formatOrderMessage };

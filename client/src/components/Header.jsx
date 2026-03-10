@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Phone, Search, Facebook, Instagram, Youtube, Globe, Menu, X } from 'lucide-react'
+import { Phone, Search, Facebook, Instagram, Youtube, Globe, Menu, X, ShoppingCart } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
+import { useCart } from '../context/CartContext'
 import logo from '../image/logo.jpg'
 import { settingsAPI } from '../services/api'
 
 export default function Header() {
   const { toggleLanguage, t } = useLanguage()
+  const { totalItems } = useCart()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [settings, setSettings] = useState({})
@@ -66,6 +68,14 @@ export default function Header() {
                 <Globe size={14} className="text-[#1e3d69] md:w-4 md:h-4" />
                 <span className="text-[#1e3d69] font-medium text-xs md:text-sm">{t.header.language}</span>
               </button>
+              <Link to="/cart" className="relative flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors">
+                <ShoppingCart size={22} className="text-[#1e3d69]" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#3563e9] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalItems > 99 ? '99+' : totalItems}
+                  </span>
+                )}
+              </Link>
             </div>
 
             <button

@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
-import { Minus, Plus, Package, X } from 'lucide-react'
+import { Minus, Plus, Package, X, ShoppingCart, Check } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { productsAPI, requestsAPI } from '../services/api'
+import { useCart } from '../context/CartContext'
 
 export default function ProductDetail() {
   const { t, language } = useLanguage()
+  const { addItem } = useCart()
   const { id } = useParams()
   const [product, setProduct] = useState(null)
   const [similarProducts, setSimilarProducts] = useState([])
@@ -15,6 +17,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1)
   const [ordering, setOrdering] = useState(false)
   const [ordered, setOrdered] = useState(false)
+  const [addedToCart, setAddedToCart] = useState(false)
   const [showOrderModal, setShowOrderModal] = useState(false)
   const [orderName, setOrderName] = useState('')
   const [orderPhone, setOrderPhone] = useState('')
@@ -135,6 +138,21 @@ export default function ProductDetail() {
                     {language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order Now'}
                   </button>
                 )}
+                <button
+                  onClick={() => {
+                    addItem(product, quantity)
+                    setAddedToCart(true)
+                    setTimeout(() => setAddedToCart(false), 2000)
+                  }}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl border-2 font-bold text-sm transition-all ${addedToCart
+                      ? 'border-green-500 bg-green-50 text-green-600'
+                      : 'border-[#1e3d69] text-[#1e3d69] hover:bg-[#1e3d69] hover:text-white'
+                    }`}
+                >
+                  {addedToCart
+                    ? <><Check size={18} /> {language === 'ru' ? 'Добавлено' : language === 'en' ? 'Added' : 'Qo\'shildi'}</>
+                    : <><ShoppingCart size={18} /> {language === 'ru' ? 'В корзину' : language === 'en' ? 'Add to Cart' : 'Savatga'}</>}
+                </button>
               </div>
             </div>
           </div>

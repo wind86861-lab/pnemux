@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
-import { Search, SlidersHorizontal, Package, ChevronDown, X } from 'lucide-react'
+import { Search, SlidersHorizontal, Package, ChevronDown, X, ShoppingCart } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { productsAPI, categoriesAPI, requestsAPI, uploadAPI } from '../services/api'
+import { useCart } from '../context/CartContext'
 
 export default function Catalog() {
   const { t, language } = useLanguage()
+  const { addItem } = useCart()
+  const [addedIds, setAddedIds] = useState(new Set())
+
+  const handleAddToCart = (product) => {
+    addItem(product, 1)
+    setAddedIds(prev => new Set(prev).add(product._id))
+    setTimeout(() => setAddedIds(prev => { const n = new Set(prev); n.delete(product._id); return n }), 2000)
+  }
   const [searchParams] = useSearchParams()
   // selection: { type: 'all'|'parent'|'sub', id: '' }
   const [isFilterOpen, setIsFilterOpen] = useState(true)
@@ -282,9 +291,18 @@ export default function Catalog() {
                       </div>
                       <div className="flex flex-col gap-2 mt-auto">
                         {product.isActive ? (
-                          <Link to={`/catalog/${product._id}`} className="w-full bg-[#3563e9] text-white py-2 rounded-lg font-medium hover:bg-[#2952d1] transition-colors text-xs md:text-sm text-center">
-                            {language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order'}
-                          </Link>
+                          <button
+                            onClick={() => handleAddToCart(product)}
+                            className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-lg font-medium text-xs md:text-sm transition-all ${addedIds.has(product._id)
+                                ? 'bg-green-500 text-white'
+                                : 'bg-[#3563e9] text-white hover:bg-[#2952d1]'
+                              }`}
+                          >
+                            <ShoppingCart size={14} />
+                            {addedIds.has(product._id)
+                              ? (language === 'ru' ? 'Добавлено ✓' : language === 'en' ? 'Added ✓' : 'Qo\'shildi ✓')
+                              : (language === 'uz' ? 'Savatga' : language === 'ru' ? 'В корзину' : 'Add to Cart')}
+                          </button>
                         ) : (
                           <div className="w-full bg-gray-300 text-gray-500 py-2 rounded-lg font-medium text-xs md:text-sm text-center cursor-not-allowed">
                             {language === 'uz' ? 'Mavjud emas' : language === 'ru' ? 'Недоступно' : 'Unavailable'}

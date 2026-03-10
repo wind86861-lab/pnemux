@@ -79,6 +79,7 @@ app.use('/api/settings', apiLimiter, require('./routes/settings'));
 app.use('/api/page-content', apiLimiter, require('./routes/pageContent'));
 app.use('/api/upload', apiLimiter, require('./routes/upload'));
 app.use('/api/team', apiLimiter, require('./routes/team'));
+app.use('/api/orders', apiLimiter, require('./routes/orders'));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'PneuMax API is running' });

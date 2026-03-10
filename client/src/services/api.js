@@ -144,4 +144,11 @@ export const teamAPI = {
   delete: (id) => api.delete(`/team/${id}`),
 }
 
+export const ordersAPI = {
+  getAll: (params) => api.get('/orders', { params }),
+  create: (data) => api.post('/orders', data),
+  update: (id, data) => api.put(`/orders/${id}`, data),
+  delete: (id) => api.delete(`/orders/${id}`),
+}
+
 export default api

@@ -13,6 +13,7 @@ import AdminRequests from './admin/AdminRequests'
 import AdminPages from './admin/AdminPages'
 import AdminSettings from './admin/AdminSettings'
 import AdminTeam from './admin/AdminTeam'
+import AdminOrders from './admin/AdminOrders'
 
 function PrivateRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuthStore()
@@ -69,6 +70,7 @@ export default function Admin() {
         <Route path="requests" element={<AdminRequests />} />
         <Route path="pages" element={<AdminPages />} />
         <Route path="team" element={<AdminTeam />} />
+        <Route path="orders" element={<AdminOrders />} />
         <Route path="settings" element={<AdminSettings />} />
       </Route>
       <Route path="*" element={<Navigate to="/admin/login" replace />} />

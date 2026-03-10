@@ -13,7 +13,8 @@ import {
   LogOut,
   Menu,
   X,
-  Users
+  Users,
+  ShoppingBag
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Команда', href: '/admin/team', icon: Users },
   { name: 'FAQ', href: '/admin/faq', icon: HelpCircle },
   { name: 'Заявки', href: '/admin/requests', icon: MessageSquare },
+  { name: 'Заказы', href: '/admin/orders', icon: ShoppingBag },
   { name: 'Контент страниц', href: '/admin/pages', icon: FileEdit },
   { name: 'Настройки', href: '/admin/settings', icon: Settings },
 ]
