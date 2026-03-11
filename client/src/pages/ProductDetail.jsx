@@ -178,10 +178,13 @@ export default function ProductDetail() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {similarProducts.map((sim) => (
               <div key={sim._id} className="bg-white border border-gray-200 rounded-xl p-3 md:p-5 hover:shadow-xl transition-all group flex flex-col" data-aos="zoom-in">
-                <div className="bg-gray-50 h-32 sm:h-40 lg:h-48 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+                <div className="bg-gray-50 h-32 sm:h-40 lg:h-48 rounded-lg mb-3 flex items-center justify-center overflow-hidden relative">
                   {sim.images?.[0]
                     ? <img src={sim.images[0]} alt={sim.name?.[language]} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                     : <Package size={48} className="text-gray-200" />}
+                  <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
+                    <span className="text-white text-xs font-bold tracking-wide">PNEUMAX</span>
+                  </div>
                 </div>
                 <div className="flex-1 flex flex-col">
                   <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm md:text-base line-clamp-2">{sim.name?.[language] || sim.name?.uz}</h4>

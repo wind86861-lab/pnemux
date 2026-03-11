@@ -163,10 +163,13 @@ export default function Home() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
           {topProducts.map((product) => (
             <div key={product._id} className="bg-white border border-gray-200 rounded-xl p-3 md:p-5 hover:shadow-xl transition-all group flex flex-col" data-aos="zoom-in">
-              <div className="bg-gray-50 h-32 sm:h-40 lg:h-48 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+              <div className="bg-gray-50 h-32 sm:h-40 lg:h-48 rounded-lg mb-3 flex items-center justify-center overflow-hidden relative">
                 {product.images?.[0]
                   ? <img src={product.images[0]} alt={product.name?.ru || product.name?.uz} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                   : <Package size={48} className="text-gray-300" />}
+                <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
+                  <span className="text-white text-xs font-bold tracking-wide">PNEUMAX</span>
+                </div>
               </div>
               <div className="flex-1 flex flex-col">
                 <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm md:text-base line-clamp-2">{product.name?.[language] || product.name?.uz}</h4>
