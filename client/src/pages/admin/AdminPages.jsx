@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, memo } from 'react'
 import { pageContentAPI, uploadAPI } from '../../services/api'
 import { Save, ChevronDown, ChevronRight, Check, Upload, X, Plus, Trash2, Image } from 'lucide-react'
 
@@ -34,7 +34,7 @@ export default function AdminPages() {
     setContentMap(prev => ({ ...prev, [section]: { ...(prev[section] || {}), ...newData } }))
   }
 
-  const updateField = (section, key, lang, value) => {
+  const updateField = useCallback((section, key, lang, value) => {
     setContentMap(prev => {
       const sectionData = { ...(prev[section] || {}) }
       if (lang) {
@@ -44,7 +44,7 @@ export default function AdminPages() {
       }
       return { ...prev, [section]: sectionData }
     })
-  }
+  }, [])
 
   const handleImageUpload = async (section, key) => {
     const input = document.createElement('input')
@@ -113,7 +113,7 @@ export default function AdminPages() {
     finally { setSaving(prev => ({ ...prev, [sKey]: false })) }
   }
 
-  const MultilangInput = ({ section, field, label }) => (
+  const MultilangInput = memo(({ section, field, label }) => (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
       <div className="space-y-2">
@@ -129,9 +129,9 @@ export default function AdminPages() {
         ))}
       </div>
     </div>
-  )
+  ))
 
-  const MultilangTextarea = ({ section, field, label }) => (
+  const MultilangTextarea = memo(({ section, field, label }) => (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
       <div className="space-y-2">
@@ -148,7 +148,7 @@ export default function AdminPages() {
         ))}
       </div>
     </div>
-  )
+  ))
 
   const ImageUploader = ({ section, field, label }) => {
     const url = contentMap[section]?.[field]
