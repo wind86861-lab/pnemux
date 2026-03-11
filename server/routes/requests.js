@@ -34,7 +34,9 @@ router.post('/', submitLimiter, async (req, res) => {
   try {
     const request = await ContactRequest.create(req.body);
     res.status(201).json(request);
-    sendTelegramMessage(formatRequestMessage(request)).catch(() => { });
+    sendTelegramMessage(formatRequestMessage(request)).catch((err) => {
+      console.error('Telegram notification error (request):', err.message);
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
