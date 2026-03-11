@@ -71,7 +71,7 @@ export default function ProductDetail() {
                 ? <img src={product.images[selectedImage]} alt={product.name?.[language]} className="w-full h-auto object-contain" />
                 : <Package size={120} className="text-gray-200" />}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="text-white/10 text-6xl md:text-8xl lg:text-9xl font-black tracking-widest transform -rotate-12 select-none">
+                <span className="text-white/20 text-5xl md:text-7xl lg:text-8xl font-black tracking-widest transform -rotate-12 select-none">
                   PNEUMAX
                 </span>
               </div>
