@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { productsAPI, requestsAPI } from '../services/api'
 import { useCart } from '../context/CartContext'
+import { formatPhoneNumber, isValidUzbekPhoneNumber } from '../utils/phoneValidation'
 
 export default function ProductDetail() {
   const { t, language } = useLanguage()
@@ -240,8 +241,7 @@ export default function ProductDetail() {
               <input
                 type="tel"
                 value={consultPhone2}
-                onChange={e => setConsultPhone2(e.target.value.replace(/[^0-9+]/g, ''))}
-                pattern="^(\+998[0-9]{9}|[0-9]{9})$"
+                onChange={e => setConsultPhone2(formatPhoneNumber(e.target.value))}
                 placeholder="+998901234567"
                 title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
@@ -254,7 +254,10 @@ export default function ProductDetail() {
             ) : (
               <button
                 onClick={async () => {
-                  if (!consultPhone2) return
+                  if (!consultPhone2 || !isValidUzbekPhoneNumber(consultPhone2)) {
+                    alert(language === 'ru' ? 'Введите корректный номер телефона' : language === 'en' ? 'Enter valid phone number' : 'To\'g\'ri telefon raqamini kiriting')
+                    return
+                  }
                   setConsult2Submitting(true)
                   try {
                     await requestsAPI.create({ name: consultName2, phone: consultPhone2, type: 'consultation', page: 'product-detail', comment: `Product: ${product.name?.uz || ''}` })
@@ -297,8 +300,7 @@ export default function ProductDetail() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">*{language === 'uz' ? 'Telefon raqamingiz' : language === 'ru' ? 'Ваш номер телефона' : 'Your phone number'}</label>
-                <input type="tel" value={orderPhone} onChange={e => setOrderPhone(e.target.value.replace(/[^0-9+]/g, ''))}
-                  pattern="^(\+998[0-9]{9}|[0-9]{9})$"
+                <input type="tel" value={orderPhone} onChange={e => setOrderPhone(formatPhoneNumber(e.target.value))}
                   placeholder="+998901234567"
                   title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]" />
@@ -307,6 +309,10 @@ export default function ProductDetail() {
                 disabled={ordering || !orderPhone || !orderName}
                 onClick={async () => {
                   if (!orderPhone || !orderName) return
+                  if (!isValidUzbekPhoneNumber(orderPhone)) {
+                    alert(language === 'ru' ? 'Введите корректный номер телефона' : language === 'en' ? 'Enter valid phone number' : 'To\'g\'ri telefon raqamini kiriting')
+                    return
+                  }
                   setOrdering(true)
                   try {
                     await requestsAPI.create({

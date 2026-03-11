@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { productsAPI, categoriesAPI, requestsAPI, uploadAPI } from '../services/api'
 import { useCart } from '../context/CartContext'
+import { formatPhoneNumber, isValidUzbekPhoneNumber } from '../utils/phoneValidation'
 
 export default function Catalog() {
   const { t, language } = useLanguage()
@@ -367,8 +368,7 @@ export default function Catalog() {
                 <input
                   type="tel"
                   value={consultPhone}
-                  onChange={e => setConsultPhone(e.target.value.replace(/[^0-9+]/g, ''))}
-                  pattern="^(\+998[0-9]{9}|[0-9]{9})$"
+                  onChange={e => setConsultPhone(formatPhoneNumber(e.target.value))}
                   placeholder="+998901234567"
                   title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
@@ -473,8 +473,7 @@ export default function Catalog() {
                 <div>
                   <label className="block text-gray-700 mb-2 text-sm md:text-base">*{language === 'uz' ? 'Telefon nomeringiz' : language === 'ru' ? 'Ваш телефон' : 'Your phone'}</label>
                   <input type="tel" value={catOrderForm.phone}
-                    onChange={e => setCatOrderForm(f => ({ ...f, phone: e.target.value.replace(/[^0-9+]/g, '') }))}
-                    pattern="^(\+998[0-9]{9}|[0-9]{9})$"
+                    onChange={e => setCatOrderForm(f => ({ ...f, phone: formatPhoneNumber(e.target.value) }))}
                     placeholder="+998901234567"
                     title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
                     className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm md:text-base focus:outline-none focus:border-[#3563e9]" />
