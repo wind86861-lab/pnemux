@@ -66,12 +66,14 @@ export default function ProductDetail() {
                 </button>
               ))}
             </div>
-            <div className="flex-1 bg-white border border-gray-200 rounded-2xl p-8 flex items-center justify-center relative">
+            <div className="flex-1 bg-white border border-gray-200 rounded-2xl p-8 flex items-center justify-center relative overflow-hidden">
               {product.images?.[selectedImage]
                 ? <img src={product.images[selectedImage]} alt={product.name?.[language]} className="w-full h-auto object-contain" />
                 : <Package size={120} className="text-gray-200" />}
-              <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded">
-                <span className="text-white text-sm font-bold tracking-wide">PNEUMAX</span>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span className="text-white/10 text-6xl md:text-8xl lg:text-9xl font-black tracking-widest transform -rotate-12 select-none">
+                  PNEUMAX
+                </span>
               </div>
             </div>
           </div>
