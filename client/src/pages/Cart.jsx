@@ -116,7 +116,7 @@ export default function Cart() {
                         <div className="absolute inset-0 pointer-events-none overflow-hidden">
                           <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-2 -rotate-12 scale-125 opacity-90">
                             {[...Array(8)].map((_, i) => (
-                              <span key={i} className="text-[#3563e9]/35 text-[8px] font-bold tracking-wider select-none whitespace-nowrap">
+                              <span key={i} className="text-[8px] font-bold tracking-wider select-none whitespace-nowrap" style={{ color: 'rgba(41, 82, 209, 0.38)', textShadow: '0 1px 2px rgba(255,255,255,0.22)' }}>
                                 PNEUMAX
                               </span>
                             ))}
