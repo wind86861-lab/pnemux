@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { MapPin, TrendingUp, Package, Truck, CreditCard, ChevronDown, Phone, Shield, Globe, Wrench, Zap } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
-import { faqsAPI, productsAPI, branchesAPI, blogsAPI, pageContentAPI, requestsAPI, uploadAPI } from '../services/api'
+import { faqsAPI, productsAPI, branchesAPI, blogsAPI, pageContentAPI, requestsAPI, uploadAPI, categoriesAPI } from '../services/api'
 import { formatPhoneNumber, isValidUzbekPhoneNumber } from '../utils/phoneValidation'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
@@ -26,6 +26,7 @@ export default function Home() {
   const [topProducts, setTopProducts] = useState([])
   const [branches, setBranches] = useState([])
   const [blogs, setBlogs] = useState([])
+  const [categories, setCategories] = useState([])
   const [cms, setCms] = useState({})
   const [consultForm, setConsultForm] = useState({ name: '', phone: '', productName: '', quantity: '' })
   const [consultImage, setConsultImage] = useState(null)
@@ -48,6 +49,7 @@ export default function Home() {
     productsAPI.getAll({ featured: 'true', active: 'true' }).then(res => setTopProducts(res.data?.products || [])).catch(() => { })
     branchesAPI.getAll({ showOnHomepage: 'true' }).then(res => setBranches(res.data || [])).catch(() => { })
     blogsAPI.getAll({ published: 'true', featured: 'true', limit: 3 }).then(res => setBlogs(res.data?.blogs || [])).catch(() => { })
+    categoriesAPI.getAll({ parent: 'null', active: 'true' }).then(res => setCategories(res.data || [])).catch(() => { })
   }, [])
 
   const heroImages = (cms.hero?.bgImages?.length > 0) ? cms.hero.bgImages : fallbackBgImages
@@ -155,6 +157,62 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* KATEGORIYALAR */}
+      {categories.length > 0 && (
+        <section className="py-10 md:py-16 lg:py-20 px-4 sm:px-6 md:px-10 lg:px-20 max-w-[1440px] mx-auto" data-aos="fade-up">
+          <div className="flex items-end justify-between mb-8 md:mb-12">
+            <div>
+              <p className="text-[#3563e9] font-semibold text-sm md:text-base mb-1 tracking-wide uppercase">
+                {language === 'uz' ? 'Mahsulotlarimiz' : language === 'ru' ? 'Наши продукты' : 'Our Products'}
+              </p>
+              <h3 className="text-[22px] sm:text-[28px] md:text-[34px] lg:text-[40px] font-black text-[#1e3d69] uppercase leading-tight">
+                {language === 'uz' ? 'Kategoriyalar' : language === 'ru' ? 'Категории' : 'Categories'}
+              </h3>
+            </div>
+            <Link
+              to="/catalog"
+              className="flex items-center gap-2 text-[#3563e9] font-semibold text-sm md:text-base hover:underline shrink-0"
+            >
+              {language === 'uz' ? 'Barchasi' : language === 'ru' ? 'Все' : 'Browse all'}
+              <span className="text-lg">→</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-5">
+            {categories.map((cat, i) => {
+              const gradients = [
+                'from-[#6b7ff5] to-[#4f5fd4]',
+                'from-[#42ade2] to-[#2185c5]',
+                'from-[#f5826b] to-[#d45f40]',
+                'from-[#7cc97f] to-[#4ea85a]',
+                'from-[#c97cc9] to-[#a050a0]',
+                'from-[#f5c46b] to-[#d49f40]',
+                'from-[#6bc9c9] to-[#40a0a0]',
+                'from-[#f57c9a] to-[#d44068]',
+              ]
+              const grad = gradients[i % gradients.length]
+              const name = cat.name?.[language] || cat.name?.uz || cat.name?.ru || ''
+              return (
+                <Link
+                  key={cat._id}
+                  to={`/catalog?category=${cat._id}`}
+                  className="group flex flex-col items-center bg-white border border-gray-100 rounded-2xl p-4 md:p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  data-aos="zoom-in"
+                  data-aos-delay={Math.min(i * 60, 360)}
+                >
+                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center mb-3 md:mb-4 overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                    {cat.image
+                      ? <img src={cat.image} alt={name} className="w-full h-full object-cover" />
+                      : <span className="text-white text-2xl md:text-3xl font-black select-none">{name.charAt(0).toUpperCase()}</span>
+                    }
+                  </div>
+                  <p className="text-center text-xs sm:text-sm font-semibold text-gray-800 group-hover:text-[#3563e9] transition-colors leading-snug line-clamp-2">{name}</p>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       {/* TOP PRODUCTS */}
       <section className="py-10 md:py-16 lg:py-20 px-4 sm:px-6 md:px-10 lg:px-20 max-w-[1440px] mx-auto" data-aos="fade-up">
