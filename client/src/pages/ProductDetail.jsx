@@ -71,9 +71,9 @@ export default function ProductDetail() {
                 ? <img src={product.images[selectedImage]} alt={product.name?.[language]} className="w-full h-auto object-contain" />
                 : <Package size={120} className="text-gray-200" />}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-8 transform -rotate-12 scale-150">
-                  {[...Array(20)].map((_, i) => (
-                    <span key={i} className="text-white/15 text-2xl md:text-3xl font-bold tracking-wider select-none whitespace-nowrap">
+                <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-5 -rotate-12 scale-125 opacity-90">
+                  {[...Array(16)].map((_, i) => (
+                    <span key={i} className="text-white/15 text-base md:text-xl font-bold tracking-wider select-none whitespace-nowrap">
                       PNEUMAX
                     </span>
                   ))}
@@ -192,8 +192,14 @@ export default function ProductDetail() {
                   {sim.images?.[0]
                     ? <img src={sim.images[0]} alt={sim.name?.[language]} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                     : <Package size={48} className="text-gray-200" />}
-                  <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
-                    <span className="text-white text-xs font-bold tracking-wide">PNEUMAX</span>
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 -rotate-12 scale-125 opacity-90">
+                      {[...Array(12)].map((_, i) => (
+                        <span key={i} className="text-white/15 text-sm md:text-base font-bold tracking-wider select-none whitespace-nowrap">
+                          PNEUMAX
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <div className="flex-1 flex flex-col">

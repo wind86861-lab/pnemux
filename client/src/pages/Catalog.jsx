@@ -281,8 +281,14 @@ export default function Catalog() {
                       {product.images?.[0]
                         ? <img src={product.images[0]} alt={product.name?.ru || product.name?.uz} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                         : <Package size={48} className="text-gray-200" />}
-                      <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
-                        <span className="text-white text-xs font-bold tracking-wide">PNEUMAX</span>
+                      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 -rotate-12 scale-125 opacity-90">
+                          {[...Array(12)].map((_, i) => (
+                            <span key={i} className="text-white/15 text-sm md:text-base font-bold tracking-wider select-none whitespace-nowrap">
+                              PNEUMAX
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="flex-1 flex flex-col">

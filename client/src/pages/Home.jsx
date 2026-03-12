@@ -71,7 +71,7 @@ export default function Home() {
   const topProductsSection = cms.topProducts || {}
   const partners = cms.partners || {}
   const partnerItems = partners.items?.filter(p => p.logo || p.name) || []
-  const PARTNERS_PER_PAGE = 6
+  const PARTNERS_PER_PAGE = 5
   const partnerPages = Math.ceil(partnerItems.length / PARTNERS_PER_PAGE)
   const showcasePages = Math.ceil(showcaseImages.length / 2)
   const visibleShowcase = showcaseImages.slice(showcaseSlide * 2, showcaseSlide * 2 + 2)
@@ -168,8 +168,14 @@ export default function Home() {
                 {product.images?.[0]
                   ? <img src={product.images[0]} alt={product.name?.ru || product.name?.uz} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
                   : <Package size={48} className="text-gray-300" />}
-                <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm px-2 py-1 rounded">
-                  <span className="text-white text-xs font-bold tracking-wide">PNEUMAX</span>
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 -rotate-12 scale-125 opacity-90">
+                    {[...Array(12)].map((_, i) => (
+                      <span key={i} className="text-white/15 text-sm md:text-base font-bold tracking-wider select-none whitespace-nowrap">
+                        PNEUMAX
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="flex-1 flex flex-col">
@@ -443,17 +449,17 @@ export default function Home() {
                 style={{ transform: `translateX(-${partnerSlide * 100}%)` }}
               >
                 {Array.from({ length: partnerPages }).map((_, pageIdx) => (
-                  <div key={pageIdx} className="w-full flex-shrink-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
+                  <div key={pageIdx} className="w-full flex-shrink-0 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6 items-stretch">
                     {partnerItems.slice(pageIdx * PARTNERS_PER_PAGE, pageIdx * PARTNERS_PER_PAGE + PARTNERS_PER_PAGE).map((partner, i) => (
-                      <div key={i} className="flex flex-col items-center justify-center gap-3 p-4 md:p-6 rounded-xl border border-gray-100 hover:border-[#3563e9]/30 hover:shadow-lg transition-all group bg-white">
-                        <div className="w-full h-24 md:h-28 flex items-center justify-center">
+                      <div key={i} className="h-full min-h-[230px] md:min-h-[250px] flex flex-col items-center justify-center gap-4 px-5 py-6 md:px-6 md:py-8 rounded-2xl border border-gray-100 hover:border-[#8a7dff]/40 hover:shadow-lg transition-all group bg-white">
+                        <div className="w-full h-28 md:h-32 flex items-center justify-center">
                           {partner.logo
-                            ? <img src={partner.logo} alt={partner.name || ''} className="max-h-24 md:max-h-28 max-w-full object-contain group-hover:scale-105 transition-transform duration-300" />
+                            ? <img src={partner.logo} alt={partner.name || ''} className="max-h-24 md:max-h-28 max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-300" />
                             : <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-lg font-bold">{(partner.name || '?').charAt(0)}</div>
                           }
                         </div>
                         {partner.name && (
-                          <p className="text-sm text-gray-600 text-center font-medium line-clamp-1">{partner.name}</p>
+                          <p className="text-[11px] md:text-xs uppercase tracking-wide text-[#49566f] text-center font-medium line-clamp-2 min-h-[28px]">{partner.name}</p>
                         )}
                       </div>
                     ))}
