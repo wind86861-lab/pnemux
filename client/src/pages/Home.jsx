@@ -507,9 +507,9 @@ export default function Home() {
                 style={{ transform: `translateX(-${partnerSlide * 100}%)` }}
               >
                 {Array.from({ length: partnerPages }).map((_, pageIdx) => (
-                  <div key={pageIdx} className="w-full flex-shrink-0 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6 items-stretch">
+                  <div key={pageIdx} className="w-full flex-shrink-0 flex flex-wrap justify-center gap-4 md:gap-5">
                     {partnerItems.slice(pageIdx * PARTNERS_PER_PAGE, pageIdx * PARTNERS_PER_PAGE + PARTNERS_PER_PAGE).map((partner, i) => (
-                      <div key={i} className="h-full min-h-[230px] md:min-h-[250px] flex flex-col items-center justify-center gap-4 px-5 py-6 md:px-6 md:py-8 rounded-2xl border border-gray-100 hover:border-[#8a7dff]/40 hover:shadow-lg transition-all group bg-white">
+                      <div key={i} className="w-[calc(50%-8px)] sm:w-[calc(33.333%-12px)] lg:w-[calc(20%-16px)] min-h-[200px] md:min-h-[230px] flex flex-col items-center justify-center gap-4 px-4 py-5 md:px-6 md:py-8 rounded-2xl border border-gray-100 hover:border-[#8a7dff]/40 hover:shadow-lg transition-all group bg-white">
                         <div className="w-full h-28 md:h-32 flex items-center justify-center">
                           {partner.logo
                             ? <img src={partner.logo} alt={partner.name || ''} className="max-h-24 md:max-h-28 max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-300" />

@@ -14,13 +14,12 @@ function Root() {
 
     if (!isAdminPage) {
       AOS.init({
-        duration: 1000,
-        once: true, // Changed to true to prevent re-triggering
-        offset: 120,
+        duration: 700,
+        once: true,
+        offset: 60,
         easing: 'ease-out-cubic',
-        delay: 50,
+        delay: 0,
         anchorPlacement: 'top-bottom',
-        disable: 'mobile', // Disable on mobile for better performance
       })
     }
 
