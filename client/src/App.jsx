@@ -13,11 +13,11 @@ import About from './pages/About'
 import Admin from './pages/Admin'
 
 function ScrollToTop() {
-  const location = useLocation()
+  const { pathname, search } = useLocation()
 
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [location.pathname])
+    window.scrollTo(0, 0)
+  }, [pathname, search])
 
   return null
 }

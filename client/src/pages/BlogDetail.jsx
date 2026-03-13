@@ -50,7 +50,7 @@ export default function BlogDetail() {
       <Header />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-8">
-        <Link to="/blog" className="inline-flex items-center gap-2 text-[#3563e9] hover:text-[#2952d1] mb-6">
+        <Link to="/blog" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center gap-2 text-[#3563e9] hover:text-[#2952d1] mb-6">
           <ArrowLeft size={20} />
           <span className="font-medium">
             {language === 'uz' && 'Orqaga'}

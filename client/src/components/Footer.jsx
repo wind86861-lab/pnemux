@@ -22,7 +22,7 @@ export default function Footer() {
 
           {/* Column 1 — Logo + description + socials */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2 mb-5">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-2 mb-5">
               <img
                 src={settings.logoImage || logo}
                 alt="Logo"
@@ -63,10 +63,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-[#10b981] text-base mb-5 uppercase tracking-wide">{t.footer.company}</h4>
             <ul className="space-y-3">
-              <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.about}</Link></li>
-              <li><Link to="/catalog" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.services}</Link></li>
-              <li><Link to="/branches" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.branches}</Link></li>
-              <li><Link to="/custom-order" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.partnership}</Link></li>
+              <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.about}</Link></li>
+              <li><Link to="/catalog" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.services}</Link></li>
+              <li><Link to="/branches" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.branches}</Link></li>
+              <li><Link to="/custom-order" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.partnership}</Link></li>
             </ul>
           </div>
 
@@ -74,10 +74,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-[#10b981] text-base mb-5 uppercase tracking-wide">{t.footer.information}</h4>
             <ul className="space-y-3">
-              <li><Link to="/branches" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.contact}</Link></li>
-              <li><Link to="/calculator" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.faq}</Link></li>
-              <li><Link to="/blog" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.news}</Link></li>
-              <li><Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.vacancies}</Link></li>
+              <li><Link to="/branches" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.contact}</Link></li>
+              <li><Link to="/calculator" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.faq}</Link></li>
+              <li><Link to="/blog" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.news}</Link></li>
+              <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className="text-white/65 hover:text-white transition-colors text-sm">{t.footer.vacancies}</Link></li>
             </ul>
           </div>
 
