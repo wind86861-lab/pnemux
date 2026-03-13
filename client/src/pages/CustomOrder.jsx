@@ -104,118 +104,124 @@ export default function CustomOrder() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-12">
-        <div className="mb-8 md:mb-12">
-          <p className="text-gray-600 mb-2 text-sm md:text-base">
+      <div className="w-full bg-gradient-to-r from-[#1e3d69] to-[#3563e9] py-10 md:py-20">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20">
+          <p className="text-white/80 mb-2 text-sm md:text-base">
             {language === 'uz' && 'O\'zingizga kerak maxsulot topilmadimi?'}
             {language === 'ru' && 'Не нашли нужный товар?'}
             {language === 'en' && 'Didn\'t find the product you need?'}
           </p>
-          <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-[#1e3d69] uppercase">
+          <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-white uppercase">
             {language === 'uz' && 'MAXSUS BUYURTMA XIZMATIDAN FOYDALANING'}
             {language === 'ru' && 'ВОСПОЛЬЗУЙТЕСЬ УСЛУГОЙ СПЕЦИАЛЬНОГО ЗАКАЗА'}
             {language === 'en' && 'USE THE CUSTOM ORDER SERVICE'}
           </h1>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-16">
-          <div className="space-y-4">
-            <input
-              type="text"
-              value={formData.name}
-              onChange={e => setFormData({ ...formData, name: e.target.value })}
-              placeholder={language === 'uz' ? 'Ismingiz' : language === 'ru' ? 'Ваше имя' : 'Your name'}
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
-            />
-            <input
-              type="tel"
-              value={formData.phone}
-              onChange={e => setFormData({ ...formData, phone: e.target.value.replace(/[^0-9+]/g, '') })}
-              pattern="^(\+998[0-9]{9}|[0-9]{9})$"
-              placeholder="+998901234567"
-              title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
-            />
-            <input
-              type="text"
-              value={formData.productName}
-              onChange={e => setFormData({ ...formData, productName: e.target.value })}
-              placeholder="* Tovar nomi, Modeli"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
-            />
-            <input
-              type="number"
-              min="1"
-              value={formData.quantity}
-              onChange={e => setFormData({ ...formData, quantity: e.target.value })}
-              placeholder="*Mahsulot miqdori"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
-            />
-          </div>
+      <div className="w-full bg-[#EFF3FD] py-6 md:py-12">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={formData.name}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
+                placeholder={language === 'uz' ? 'Ismingiz' : language === 'ru' ? 'Ваше имя' : 'Your name'}
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
+              />
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={e => setFormData({ ...formData, phone: e.target.value.replace(/[^0-9+]/g, '') })}
+                pattern="^(\+998[0-9]{9}|[0-9]{9})$"
+                placeholder="+998901234567"
+                title="Enter valid phone: +998XXXXXXXXX or XXXXXXXXX"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
+              />
+              <input
+                type="text"
+                value={formData.productName}
+                onChange={e => setFormData({ ...formData, productName: e.target.value })}
+                placeholder="* Tovar nomi, Modeli"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
+              />
+              <input
+                type="number"
+                min="1"
+                value={formData.quantity}
+                onChange={e => setFormData({ ...formData, quantity: e.target.value })}
+                placeholder="*Mahsulot miqdori"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#3563e9]"
+              />
+            </div>
 
-          <div className="flex flex-col gap-4">
-            <label className="flex-1 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#3563e9] transition-colors cursor-pointer relative" style={{ minHeight: '160px' }}>
-              <input type="file" accept="image/*" onChange={handleImageSelect} className="hidden" disabled={uploading} />
-              {imagePreview ? (
-                <div className="relative w-full h-full">
-                  <img src={imagePreview} alt="preview" className="w-full h-48 object-cover" />
-                  {uploading && (
-                    <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-                      <div className="animate-spin w-8 h-8 border-4 border-[#3563e9] border-t-transparent rounded-full" />
-                    </div>
-                  )}
-                  {!uploading && image && (
-                    <div className="absolute top-2 right-2 flex gap-2">
-                      <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                        <CheckCircle size={12} />
-                        {language === 'uz' ? 'Yuklandi' : language === 'ru' ? 'Загружено' : 'Uploaded'}
-                      </span>
-                    </div>
-                  )}
-                  <button type="button" onClick={(e) => { e.preventDefault(); removeImage() }} className="absolute top-2 left-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
-                    <X size={14} />
-                  </button>
+            <div className="flex flex-col gap-4">
+              <label className="flex-1 border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#3563e9] transition-colors cursor-pointer relative" style={{ minHeight: '160px' }}>
+                <input type="file" accept="image/*" onChange={handleImageSelect} className="hidden" disabled={uploading} />
+                {imagePreview ? (
+                  <div className="relative w-full h-full">
+                    <img src={imagePreview} alt="preview" className="w-full h-48 object-cover" />
+                    {uploading && (
+                      <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                        <div className="animate-spin w-8 h-8 border-4 border-[#3563e9] border-t-transparent rounded-full" />
+                      </div>
+                    )}
+                    {!uploading && image && (
+                      <div className="absolute top-2 right-2 flex gap-2">
+                        <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                          <CheckCircle size={12} />
+                          {language === 'uz' ? 'Yuklandi' : language === 'ru' ? 'Загружено' : 'Uploaded'}
+                        </span>
+                      </div>
+                    )}
+                    <button type="button" onClick={(e) => { e.preventDefault(); removeImage() }} className="absolute top-2 left-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                      <X size={14} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center p-8 h-full">
+                    <Upload size={40} className="text-gray-400 mb-3" />
+                    <p className="text-gray-500 text-center font-medium">
+                      {language === 'uz' ? 'Mahsulot rasmini yuklang' : language === 'ru' ? 'Загрузите фото товара' : 'Upload product image'}
+                    </p>
+                    <p className="text-gray-400 text-sm mt-1">
+                      {language === 'uz' ? `(Ixtiyoriy, max ${MAX_SIZE_MB}MB)` : language === 'ru' ? `(Необязательно, макс. ${MAX_SIZE_MB}МБ)` : `(Optional, max ${MAX_SIZE_MB}MB)`}
+                    </p>
+                  </div>
+                )}
+              </label>
+              {uploadError && <p className="text-red-500 text-sm">{uploadError}</p>}
+              {submitted ? (
+                <div className="bg-green-50 border border-green-200 rounded-xl py-4 text-center text-green-700 font-semibold">
+                  {language === 'uz' ? 'Buyurtmangiz qabul qilindi!' : language === 'ru' ? 'Заявка принята!' : 'Order received!'}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center p-8 h-full">
-                  <Upload size={40} className="text-gray-400 mb-3" />
-                  <p className="text-gray-500 text-center font-medium">
-                    {language === 'uz' ? 'Mahsulot rasmini yuklang' : language === 'ru' ? 'Загрузите фото товара' : 'Upload product image'}
-                  </p>
-                  <p className="text-gray-400 text-sm mt-1">
-                    {language === 'uz' ? `(Ixtiyoriy, max ${MAX_SIZE_MB}MB)` : language === 'ru' ? `(Необязательно, макс. ${MAX_SIZE_MB}МБ)` : `(Optional, max ${MAX_SIZE_MB}MB)`}
-                  </p>
-                </div>
+                <button
+                  onClick={async () => {
+                    if (!formData.phone) return
+                    setSubmitting(true)
+                    try {
+                      await requestsAPI.create({ name: formData.name, phone: formData.phone, productModel: formData.productName, productQuantity: formData.quantity, type: 'custom-order', page: 'custom-order', image: image || undefined })
+                      setSubmitted(true)
+                      setFormData({ name: '', phone: '', productName: '', quantity: '' })
+                      setImage(null)
+                      setImagePreview(null)
+                    } catch { }
+                    finally { setSubmitting(false) }
+                  }}
+                  disabled={submitting}
+                  className="bg-[#10b981] text-white py-4 rounded-xl font-semibold text-lg hover:bg-[#059669] transition-colors disabled:opacity-60"
+                >
+                  {submitting ? '...' : language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order'}
+                </button>
               )}
-            </label>
-            {uploadError && <p className="text-red-500 text-sm">{uploadError}</p>}
-            {submitted ? (
-              <div className="bg-green-50 border border-green-200 rounded-xl py-4 text-center text-green-700 font-semibold">
-                {language === 'uz' ? 'Buyurtmangiz qabul qilindi!' : language === 'ru' ? 'Заявка принята!' : 'Order received!'}
-              </div>
-            ) : (
-              <button
-                onClick={async () => {
-                  if (!formData.phone) return
-                  setSubmitting(true)
-                  try {
-                    await requestsAPI.create({ name: formData.name, phone: formData.phone, productModel: formData.productName, productQuantity: formData.quantity, type: 'custom-order', page: 'custom-order', image: image || undefined })
-                    setSubmitted(true)
-                    setFormData({ name: '', phone: '', productName: '', quantity: '' })
-                    setImage(null)
-                    setImagePreview(null)
-                  } catch { }
-                  finally { setSubmitting(false) }
-                }}
-                disabled={submitting}
-                className="bg-[#10b981] text-white py-4 rounded-xl font-semibold text-lg hover:bg-[#059669] transition-colors disabled:opacity-60"
-              >
-                {submitting ? '...' : language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order'}
-              </button>
-            )}
+            </div>
           </div>
         </div>
+      </div>
 
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-20 py-6 md:py-12">
         <div className="mb-16">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#1e3d69] mb-5 md:mb-8 uppercase">
             {language === 'uz' && 'TAFSIYA QILINADI'}
