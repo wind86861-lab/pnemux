@@ -118,7 +118,7 @@ export default function Home() {
                 {hero.line3?.[language] || hero.line3?.uz || 'Tez, ishonchli va hamyonbop.'}
               </p>
             </div>
-            <Link to="/catalog" className="bg-[#3563e9] text-white w-full py-3 sm:py-3.5 md:py-2 lg:py-3 rounded-lg font-semibold text-base sm:text-lg md:text-xl lg:text-2xl shadow-lg hover:bg-[#2952d1] transition-all hover:shadow-xl mt-5 sm:mt-6 md:mt-7 lg:mt-8 text-center block">
+            <Link to="/catalog" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="bg-[#3563e9] text-white w-full py-3 sm:py-3.5 md:py-2 lg:py-3 rounded-lg font-semibold text-base sm:text-lg md:text-xl lg:text-2xl shadow-lg hover:bg-[#2952d1] transition-all hover:shadow-xl mt-5 sm:mt-6 md:mt-7 lg:mt-8 text-center block">
               {hero.buttonText?.[language] || hero.buttonText?.uz || 'Buyurtma berish'}
             </Link>
           </div>
@@ -246,7 +246,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-2 mt-auto">
                   {product.isActive ? (
-                    <Link to={`/catalog/${product._id}`} onClick={() => window.scrollTo(0, 0)} className="w-full bg-[#3563e9] text-white py-2 rounded-lg font-medium hover:bg-[#2952d1] transition-colors text-xs md:text-sm text-center">
+                    <Link to={`/catalog/${product._id}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-full bg-[#3563e9] text-white py-2 rounded-lg font-medium hover:bg-[#2952d1] transition-colors text-xs md:text-sm text-center">
                       {language === 'uz' ? 'Buyurtma berish' : language === 'ru' ? 'Заказать' : 'Order'}
                     </Link>
                   ) : (
@@ -254,7 +254,7 @@ export default function Home() {
                       {language === 'uz' ? 'Mavjud emas' : language === 'ru' ? 'Недоступно' : 'Unavailable'}
                     </div>
                   )}
-                  <Link to={`/catalog/${product._id}`} onClick={() => window.scrollTo(0, 0)} className="w-full bg-white border-2 border-[#3563e9] text-[#3563e9] py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-xs md:text-sm text-center">
+                  <Link to={`/catalog/${product._id}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-full bg-white border-2 border-[#3563e9] text-[#3563e9] py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors text-xs md:text-sm text-center">
                     {language === 'uz' ? 'Batafsil' : language === 'ru' ? 'Подробнее' : 'Details'}
                   </Link>
                 </div>
@@ -344,7 +344,7 @@ export default function Home() {
                         </div>
                       )}
                     </div>
-                    <Link to="/branches" className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors mt-8 self-end">
+                    <Link to="/branches" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors mt-8 self-end">
                       <span className="text-[#1e3d69] text-xl">→</span>
                     </Link>
                   </div>
