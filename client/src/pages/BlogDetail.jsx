@@ -18,6 +18,7 @@ export default function BlogDetail() {
     if (id) {
       blogsAPI.getById(id).then(res => setBlog(res.data)).catch(() => { })
       blogsAPI.getAll({ published: 'true', limit: 3 }).then(res => setRelatedBlogs(res.data?.blogs || [])).catch(() => { })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [id])
 
