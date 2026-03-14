@@ -43,6 +43,7 @@ export default function CustomOrder() {
   const [imagePreview, setImagePreview] = useState(null)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
+  const [submitAttempted, setSubmitAttempted] = useState(false)
 
   const MAX_SIZE_MB = 5
 
@@ -212,15 +213,20 @@ export default function CustomOrder() {
                   <div className="flex flex-col items-center justify-center p-8 h-full">
                     <Upload size={40} className="text-gray-400 mb-3" />
                     <p className="text-gray-500 text-center font-medium">
-                      {language === 'uz' ? 'Mahsulot rasmini yuklang' : language === 'ru' ? 'Загрузите фото товара' : 'Upload product image'}
+                      <span className="text-red-500">*</span> {language === 'uz' ? 'Mahsulot rasmini yuklang' : language === 'ru' ? 'Загрузите фото товара' : 'Upload product image'}
                     </p>
                     <p className="text-gray-400 text-sm mt-1">
-                      {language === 'uz' ? `(Ixtiyoriy, max ${MAX_SIZE_MB}MB)` : language === 'ru' ? `(Необязательно, макс. ${MAX_SIZE_MB}МБ)` : `(Optional, max ${MAX_SIZE_MB}MB)`}
+                      {language === 'uz' ? `(Majburiy, max ${MAX_SIZE_MB}MB)` : language === 'ru' ? `(Обязательно, макс. ${MAX_SIZE_MB}МБ)` : `(Required, max ${MAX_SIZE_MB}MB)`}
                     </p>
                   </div>
                 )}
               </label>
               {uploadError && <p className="text-red-500 text-sm">{uploadError}</p>}
+              {submitAttempted && !image && !imagePreview && (
+                <p className="text-red-500 text-xs -mt-2">
+                  {language === 'uz' ? '* Rasm yuklash majburiy' : language === 'ru' ? '* Загрузка фото обязательна' : '* Image upload is required'}
+                </p>
+              )}
               {submitted ? (
                 <div className="bg-green-50 border border-green-200 rounded-xl py-4 text-center text-green-700 font-semibold">
                   {language === 'uz' ? 'Buyurtmangiz qabul qilindi!' : language === 'ru' ? 'Заявка принята!' : 'Order received!'}
@@ -228,7 +234,8 @@ export default function CustomOrder() {
               ) : (
                 <button
                   onClick={async () => {
-                    if (!formData.phone) return
+                    setSubmitAttempted(true)
+                    if (!formData.phone || !image) return
                     setSubmitting(true)
                     try {
                       await requestsAPI.create({ name: formData.name, phone: formData.phone, productModel: formData.productName, productQuantity: formData.quantity, type: 'custom-order', page: 'custom-order', image: image || undefined })
