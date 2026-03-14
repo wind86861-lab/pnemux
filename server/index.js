@@ -31,7 +31,13 @@ app.use(helmet({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       "img-src": ["'self'", "data:", "blob:", "https:"],
-      "frame-src": ["'self'", "https://www.google.com"],
+      "frame-src": ["'self'", "https://www.google.com", "https://maps.google.com", "https://maps.googleapis.com"],
+      "script-src": ["'self'", "'unsafe-inline'", "https://maps.googleapis.com", "https://maps.gstatic.com"],
+      "script-src-elem": ["'self'", "'unsafe-inline'", "https://maps.googleapis.com", "https://maps.gstatic.com"],
+      "connect-src": ["'self'", "https://maps.googleapis.com", "https://maps.gstatic.com", "https://*.googleapis.com"],
+      "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://maps.googleapis.com"],
+      "font-src": ["'self'", "data:", "https://fonts.gstatic.com"],
+      "worker-src": ["'self'", "blob:"],
     },
   },
 }));
