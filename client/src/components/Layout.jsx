@@ -131,7 +131,7 @@ export default function Layout() {
       </div>
 
       <div className="lg:pl-64 pt-16 lg:pt-0">
-        <main className="p-6">
+        <main className="p-3 sm:p-6">
           <Outlet />
         </main>
       </div>

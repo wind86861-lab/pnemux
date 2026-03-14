@@ -84,7 +84,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Панель управления</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Панель управления</h1>
         <p className="text-gray-600 mt-1">Обзор управления контентом сайта</p>
       </div>
 
@@ -114,17 +114,17 @@ export default function AdminDashboard() {
         <div className="divide-y divide-gray-100">
           {recentRequests.length > 0 ? (
             recentRequests.map((req) => (
-              <div key={req._id} className="p-4 flex items-center justify-between">
+              <div key={req._id} className="p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 sm:justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                    <MessageSquare size={18} className="text-gray-500" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center shrink-0">
+                    <MessageSquare size={16} className="text-gray-500" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{req.name}</p>
                     <p className="text-sm text-gray-500">{req.phone} &middot; {req.type}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 ml-11 sm:ml-0">
                   <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[req.status] || 'bg-gray-100 text-gray-700'}`}>
                     {req.status}
                   </span>

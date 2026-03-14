@@ -103,9 +103,9 @@ export default function AdminTeam() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Команда</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Команда</h1>
           <p className="text-gray-600 text-sm">{members.length} сотрудников</p>
         </div>
         <button
@@ -210,7 +210,7 @@ export default function AdminTeam() {
               {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Должность</label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <input
                     type="text"
                     value={formData.title.uz}
@@ -264,7 +264,7 @@ export default function AdminTeam() {
               </div>
 
               {/* Order & Active */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Порядок</label>
                   <input

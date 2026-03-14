@@ -131,7 +131,7 @@ export default function AdminCategories() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Категории</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Категории</h1>
           <p className="text-gray-500 text-sm mt-0.5">
             <span className="font-medium text-blue-600">{totalCategories}</span> категорий &middot;{' '}
             <span className="font-medium text-purple-600">{totalSubcategories}</span> подкатегорий
@@ -175,7 +175,7 @@ export default function AdminCategories() {
             return (
               <div key={cat._id} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
                 {/* Category row */}
-                <div className="flex items-center gap-3 p-4 hover:bg-gray-50">
+                <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 hover:bg-gray-50 flex-wrap">
                   <button onClick={() => toggleExpand(cat._id)} className="text-gray-400 hover:text-gray-600 flex-shrink-0">
                     {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                   </button>
@@ -188,9 +188,9 @@ export default function AdminCategories() {
                     <p className="font-semibold text-gray-900 text-sm">{cat.name?.uz}</p>
                     <p className="text-xs text-gray-500">{cat.name?.ru} · {cat.name?.en}</p>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-full font-medium">{subs.length} sub</span>
-                    <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">Order: {cat.order}</span>
+                  <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 flex-wrap">
+                    <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded-full font-medium hidden sm:inline">{subs.length} sub</span>
+                    <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full hidden sm:inline">Order: {cat.order}</span>
                     <button
                       onClick={() => toggleActive(cat)}
                       className={`text-xs px-2 py-1 rounded-full font-medium ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
@@ -206,7 +206,7 @@ export default function AdminCategories() {
                 {isExpanded && subs.length > 0 && (
                   <div className="border-t border-gray-100 bg-gray-50/50">
                     {subs.map((sub, idx) => (
-                      <div key={sub._id} className={`flex items-center gap-3 px-4 py-3 hover:bg-gray-100/60 ${idx < subs.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                      <div key={sub._id} className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 hover:bg-gray-100/60 flex-wrap ${idx < subs.length - 1 ? 'border-b border-gray-100' : ''}`}>
                         <div className="w-6 flex-shrink-0" />
                         <div className="w-px h-6 bg-gray-300 flex-shrink-0" />
                         <div className="w-7 h-7 bg-purple-100 rounded-md flex items-center justify-center flex-shrink-0">
@@ -216,8 +216,8 @@ export default function AdminCategories() {
                           <p className="font-medium text-gray-800 text-sm">{sub.name?.uz}</p>
                           <p className="text-xs text-gray-400">{sub.name?.ru} · {sub.name?.en}</p>
                         </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">Order: {sub.order}</span>
+                        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                          <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full hidden sm:inline">Order: {sub.order}</span>
                           <button
                             onClick={() => toggleActive(sub)}
                             className={`text-xs px-2 py-1 rounded-full font-medium ${sub.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
@@ -244,48 +244,50 @@ export default function AdminCategories() {
       ) : (
         /* Flat List View */
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                <th className="text-left p-4 font-medium text-gray-600">Тип</th>
-                <th className="text-left p-4 font-medium text-gray-600">Название (UZ)</th>
-                <th className="text-left p-4 font-medium text-gray-600">Название (RU)</th>
-                <th className="text-left p-4 font-medium text-gray-600">Родитель</th>
-                <th className="text-left p-4 font-medium text-gray-600">Порядок</th>
-                <th className="text-left p-4 font-medium text-gray-600">Статус</th>
-                <th className="text-right p-4 font-medium text-gray-600">Действия</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {filteredAll.length === 0 ? (
-                <tr><td colSpan={7} className="p-8 text-center text-gray-400">Категории не найдены</td></tr>
-              ) : filteredAll.map(cat => (
-                <tr key={cat._id} className={`hover:bg-gray-50 ${cat.parent ? 'bg-gray-50/30' : ''}`}>
-                  <td className="p-4">
-                    {cat.parent
-                      ? <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><Tag size={11} /> Sub</span>
-                      : <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><Folder size={11} /> Cat</span>
-                    }
-                  </td>
-                  <td className="p-4 font-medium text-gray-900">{cat.name?.uz}</td>
-                  <td className="p-4 text-gray-700">{cat.name?.ru}</td>
-                  <td className="p-4 text-gray-500">{cat.parent?.name?.uz || <span className="text-gray-300">—</span>}</td>
-                  <td className="p-4 text-gray-500">{cat.order}</td>
-                  <td className="p-4">
-                    <button onClick={() => toggleActive(cat)} className={`text-xs px-2 py-1 rounded-full font-medium ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                      {cat.isActive ? 'Active' : 'Inactive'}
-                    </button>
-                  </td>
-                  <td className="p-4 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <button onClick={() => openEdit(cat)} className="p-2 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={15} /></button>
-                      <button onClick={() => handleDelete(cat._id)} className="p-2 hover:bg-red-50 rounded-lg text-red-600"><Trash2 size={15} /></button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm min-w-[600px]">
+              <thead className="bg-gray-50 border-b border-gray-100">
+                <tr>
+                  <th className="text-left p-4 font-medium text-gray-600">Тип</th>
+                  <th className="text-left p-4 font-medium text-gray-600">Название (UZ)</th>
+                  <th className="text-left p-4 font-medium text-gray-600">Название (RU)</th>
+                  <th className="text-left p-4 font-medium text-gray-600">Родитель</th>
+                  <th className="text-left p-4 font-medium text-gray-600">Порядок</th>
+                  <th className="text-left p-4 font-medium text-gray-600">Статус</th>
+                  <th className="text-right p-4 font-medium text-gray-600">Действия</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredAll.length === 0 ? (
+                  <tr><td colSpan={7} className="p-8 text-center text-gray-400">Категории не найдены</td></tr>
+                ) : filteredAll.map(cat => (
+                  <tr key={cat._id} className={`hover:bg-gray-50 ${cat.parent ? 'bg-gray-50/30' : ''}`}>
+                    <td className="p-4">
+                      {cat.parent
+                        ? <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><Tag size={11} /> Sub</span>
+                        : <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><Folder size={11} /> Cat</span>
+                      }
+                    </td>
+                    <td className="p-4 font-medium text-gray-900">{cat.name?.uz}</td>
+                    <td className="p-4 text-gray-700">{cat.name?.ru}</td>
+                    <td className="p-4 text-gray-500">{cat.parent?.name?.uz || <span className="text-gray-300">—</span>}</td>
+                    <td className="p-4 text-gray-500">{cat.order}</td>
+                    <td className="p-4">
+                      <button onClick={() => toggleActive(cat)} className={`text-xs px-2 py-1 rounded-full font-medium ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                        {cat.isActive ? 'Active' : 'Inactive'}
+                      </button>
+                    </td>
+                    <td className="p-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button onClick={() => openEdit(cat)} className="p-2 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={15} /></button>
+                        <button onClick={() => handleDelete(cat._id)} className="p-2 hover:bg-red-50 rounded-lg text-red-600"><Trash2 size={15} /></button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
@@ -340,7 +342,7 @@ export default function AdminCategories() {
                   </label>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Родительская категория</label>
                   <select value={form.parent} onChange={e => setForm(f => ({ ...f, parent: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">

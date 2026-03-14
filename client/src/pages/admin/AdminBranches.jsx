@@ -104,9 +104,9 @@ export default function AdminBranches() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Филиалы</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Филиалы</h1>
           <p className="text-gray-600 text-sm">{branches.length} филиалов</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
@@ -171,7 +171,7 @@ export default function AdminBranches() {
                 <input placeholder="Title (EN)" value={form.title.en} onChange={e => setForm(f => ({ ...f, title: { ...f.title, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" required />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Название компании</label>
                   <input value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
@@ -189,7 +189,7 @@ export default function AdminBranches() {
                 <input placeholder="Director (EN)" value={form.director.en} onChange={e => setForm(f => ({ ...f, director: { ...f.director, en: e.target.value } }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Дата основания</label>
                   <input value={form.founded} onChange={e => setForm(f => ({ ...f, founded: e.target.value }))} placeholder="напр. 24.01.2024" className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />

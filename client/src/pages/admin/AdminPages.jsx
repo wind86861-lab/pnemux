@@ -593,7 +593,7 @@ export default function AdminPages() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Sahifa kontenti</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Sahifa kontenti</h1>
         <p className="text-gray-600 text-sm">Har bir sahifa bo'limlarini tahrirlang</p>
       </div>
 

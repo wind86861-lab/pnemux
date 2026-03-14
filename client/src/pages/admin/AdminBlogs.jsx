@@ -87,9 +87,9 @@ export default function AdminBlogs() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Статьи блога</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Статьи блога</h1>
           <p className="text-gray-600 text-sm">{total} статей</p>
         </div>
         <button onClick={openCreate} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 text-sm font-medium">
@@ -98,55 +98,57 @@ export default function AdminBlogs() {
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-50 border-b border-gray-100">
-            <tr>
-              <th className="text-left p-4 font-medium text-gray-600">Фото</th>
-              <th className="text-left p-4 font-medium text-gray-600">Заголовок (UZ)</th>
-              <th className="text-left p-4 font-medium text-gray-600">Автор</th>
-              <th className="text-left p-4 font-medium text-gray-600">Просмотры</th>
-              <th className="text-left p-4 font-medium text-gray-600">Избранная</th>
-              <th className="text-left p-4 font-medium text-gray-600">Статус</th>
-              <th className="text-left p-4 font-medium text-gray-600">Дата</th>
-              <th className="text-right p-4 font-medium text-gray-600">Действия</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {loading ? (
-              <tr><td colSpan={8} className="p-8 text-center text-gray-400">Загрузка...</td></tr>
-            ) : blogs.length === 0 ? (
-              <tr><td colSpan={8} className="p-8 text-center text-gray-400">Статей нет</td></tr>
-            ) : blogs.map(blog => (
-              <tr key={blog._id} className="hover:bg-gray-50">
-                <td className="p-4">
-                  <div className="w-16 h-10 bg-gray-100 rounded-lg overflow-hidden">
-                    {blog.image ? <img src={blog.image} alt="" className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600" />}
-                  </div>
-                </td>
-                <td className="p-4 font-medium text-gray-900 max-w-[200px] truncate">{blog.title?.uz || '—'}</td>
-                <td className="p-4 text-gray-700">{blog.author}</td>
-                <td className="p-4 text-gray-500 flex items-center gap-1"><Eye size={14} /> {blog.views}</td>
-                <td className="p-4">
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.featured ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
-                    {blog.featured ? '⭐ Избранная' : '—'}
-                  </span>
-                </td>
-                <td className="p-4">
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.isPublished ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                    {blog.isPublished ? 'Опубликовано' : 'Черновик'}
-                  </span>
-                </td>
-                <td className="p-4 text-gray-500 text-xs">{new Date(blog.createdAt).toLocaleDateString()}</td>
-                <td className="p-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button onClick={() => openEdit(blog)} className="p-2 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={16} /></button>
-                    <button onClick={() => handleDelete(blog._id)} className="p-2 hover:bg-red-50 rounded-lg text-red-600"><Trash2 size={16} /></button>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[700px]">
+            <thead className="bg-gray-50 border-b border-gray-100">
+              <tr>
+                <th className="text-left p-4 font-medium text-gray-600">Фото</th>
+                <th className="text-left p-4 font-medium text-gray-600">Заголовок (UZ)</th>
+                <th className="text-left p-4 font-medium text-gray-600">Автор</th>
+                <th className="text-left p-4 font-medium text-gray-600">Просмотры</th>
+                <th className="text-left p-4 font-medium text-gray-600">Избранная</th>
+                <th className="text-left p-4 font-medium text-gray-600">Статус</th>
+                <th className="text-left p-4 font-medium text-gray-600">Дата</th>
+                <th className="text-right p-4 font-medium text-gray-600">Действия</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {loading ? (
+                <tr><td colSpan={8} className="p-8 text-center text-gray-400">Загрузка...</td></tr>
+              ) : blogs.length === 0 ? (
+                <tr><td colSpan={8} className="p-8 text-center text-gray-400">Статей нет</td></tr>
+              ) : blogs.map(blog => (
+                <tr key={blog._id} className="hover:bg-gray-50">
+                  <td className="p-4">
+                    <div className="w-16 h-10 bg-gray-100 rounded-lg overflow-hidden">
+                      {blog.image ? <img src={blog.image} alt="" className="w-full h-full object-cover" /> : <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600" />}
+                    </div>
+                  </td>
+                  <td className="p-4 font-medium text-gray-900 max-w-[200px] truncate">{blog.title?.uz || '—'}</td>
+                  <td className="p-4 text-gray-700">{blog.author}</td>
+                  <td className="p-4 text-gray-500 flex items-center gap-1"><Eye size={14} /> {blog.views}</td>
+                  <td className="p-4">
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.featured ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {blog.featured ? '⭐ Избранная' : '—'}
+                    </span>
+                  </td>
+                  <td className="p-4">
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${blog.isPublished ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                      {blog.isPublished ? 'Опубликовано' : 'Черновик'}
+                    </span>
+                  </td>
+                  <td className="p-4 text-gray-500 text-xs">{new Date(blog.createdAt).toLocaleDateString()}</td>
+                  <td className="p-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button onClick={() => openEdit(blog)} className="p-2 hover:bg-blue-50 rounded-lg text-blue-600"><Pencil size={16} /></button>
+                      <button onClick={() => handleDelete(blog._id)} className="p-2 hover:bg-red-50 rounded-lg text-red-600"><Trash2 size={16} /></button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {totalPages > 1 && (
           <div className="flex items-center justify-between p-4 border-t border-gray-100">
             <span className="text-sm text-gray-500">Стр. {page} из {totalPages}</span>
@@ -199,7 +201,7 @@ export default function AdminBlogs() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Автор</label>
                   <input value={form.author} onChange={e => setForm(f => ({ ...f, author: e.target.value }))} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />

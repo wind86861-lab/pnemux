@@ -49,9 +49,9 @@ export default function AdminOrders() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Заказы</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Заказы</h1>
           <p className="text-gray-600 text-sm">{total} заказов</p>
         </div>
         <select
@@ -80,7 +80,7 @@ export default function AdminOrders() {
           return (
             <div key={order._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               {/* Header row */}
-              <div className="flex items-center gap-4 p-4">
+              <div className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 flex-wrap">
                 <button
                   onClick={() => setExpandedId(isExpanded ? null : order._id)}
                   className="text-gray-400 hover:text-gray-600"
@@ -88,7 +88,7 @@ export default function AdminOrders() {
                   {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
 
-                <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 text-sm min-w-0">
                   <div className="flex items-center gap-2 text-gray-700">
                     <User size={14} className="text-gray-400" />
                     <span className="truncate">{order.customerName || '—'}</span>

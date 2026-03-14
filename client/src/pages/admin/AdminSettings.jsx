@@ -109,9 +109,9 @@ export default function AdminSettings() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Настройки</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Настройки</h1>
           <p className="text-gray-600 text-sm">Управление всеми настройками сайта</p>
         </div>
         <button

@@ -97,7 +97,7 @@ export default function AdminRequests() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Заявки</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Заявки</h1>
           <p className="text-gray-600 text-sm">{total} заявок всего</p>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default function AdminRequests() {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[700px]">
             <thead className="bg-gray-50 border-b border-gray-100">
               <tr>
                 <th className="text-left p-3 font-medium text-gray-600 whitespace-nowrap">#</th>
