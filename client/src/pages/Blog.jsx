@@ -38,7 +38,11 @@ export default function Blog() {
           {posts.map((post) => (
             <Link key={post._id} to={`/blog/${post._id}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <article className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div className="h-48 bg-gradient-to-br from-[#1e3d69] to-[#3563e9]"></div>
+                <div className="h-48 bg-gradient-to-br from-[#1e3d69] to-[#3563e9] relative overflow-hidden">
+                  {post.image && (
+                    <img src={post.image} alt={post.title?.[language] || post.title?.uz} className="w-full h-full object-cover" />
+                  )}
+                </div>
                 <div className="p-6">
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
                     <div className="flex items-center gap-2">
