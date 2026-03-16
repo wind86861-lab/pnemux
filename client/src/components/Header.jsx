@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Phone, Search, Facebook, Instagram, Youtube, Globe, Menu, X, ShoppingCart } from 'lucide-react'
+import { Phone, Search, Facebook, Instagram, Youtube, Globe, Menu, X, ShoppingCart, Send } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 import { useCart } from '../context/CartContext'
 import logo from '../image/logo.jpg'
@@ -48,15 +48,22 @@ export default function Header() {
 
             <div className="hidden md:flex items-center gap-3 lg:gap-6">
               <div className="hidden lg:flex items-center gap-4">
-                <a href="#" className="text-[#1e3d69] hover:text-[#3563e9] transition-colors">
-                  <Facebook size={20} />
-                </a>
-                <a href="#" className="text-[#1e3d69] hover:text-[#3563e9] transition-colors">
-                  <Instagram size={20} />
-                </a>
-                <a href="#" className="text-[#1e3d69] hover:text-[#3563e9] transition-colors">
-                  <Youtube size={20} />
-                </a>
+                {[
+                  { href: settings.facebook, Icon: Facebook },
+                  { href: settings.instagram, Icon: Instagram },
+                  { href: settings.telegram, Icon: Send },
+                  { href: settings.youtube, Icon: Youtube },
+                ].map(({ href, Icon }, i) => (
+                  <a
+                    key={i}
+                    href={href || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#1e3d69] hover:text-[#3563e9] transition-colors"
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
               </div>
               <div className="hidden md:flex items-center gap-2">
                 <Phone size={18} className="text-[#1e3d69]" />
@@ -173,15 +180,22 @@ export default function Header() {
             </div>
             {/* Social links */}
             <div className="flex items-center justify-center gap-4 py-3 border-b border-white/10">
-              <a href="#" className="text-white hover:text-[#42ade2] transition-colors">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-white hover:text-[#42ade2] transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-white hover:text-[#42ade2] transition-colors">
-                <Youtube size={20} />
-              </a>
+              {[
+                { href: settings.facebook, Icon: Facebook },
+                { href: settings.instagram, Icon: Instagram },
+                { href: settings.telegram, Icon: Send },
+                { href: settings.youtube, Icon: Youtube },
+              ].map(({ href, Icon }, i) => (
+                <a
+                  key={i}
+                  href={href || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#42ade2] transition-colors"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
             {/* Language toggle */}
             <button
